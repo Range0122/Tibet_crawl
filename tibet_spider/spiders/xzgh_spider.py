@@ -1,0 +1,73 @@
+# -*- coding:utf-8 -*-
+
+import scrapy
+import re
+from tibet_spider.items import XZGHSpiderItem
+from scrapy.spiders import CrawlSpider
+
+
+class XZGHSpider(CrawlSpider):
+    # 西藏工会新闻网
+    name = 'xzgh_spider'
+    # 时政要闻，工会动态，基层工会
+    start_urls = [
+        'http://xz.workercn.cn/10930/10930.shtml',
+        'http://xz.workercn.cn/10850/10850.shtml',
+        'http://xz.workercn.cn/10858/10858.shtml',
+    ]
+    basic_url = 'http://xz.workercn.cn'
+
+    def parse(self, response):
+        """
+        解析子目录的文章列表的首页
+        例如：http://xz.workercn.cn/10930/10930.shtml
+        使用page变量记录当前的页数
+        """
+        url_list = response.selector.xpath('//div[@class="list_left"]/div[2]/div/ul/li/a/@href').extract()
+
+        for i in range(0, len(url_list)):
+            request = scrapy.Request(url=self.basic_url + url_list[i], callback=self.parse_pages)
+            yield request
+
+        next_url = response.url[:-6] + '_2.shtml'
+        page = 2
+        request = scrapy.Request(url=next_url, meta={"page": page}, callback=self.get_url_list)
+        yield request
+
+    def get_url_list(self, response):
+        """
+        解析子目录的文章列表的非首页
+        例如：http://xz.workercn.cn/10930/10930_2.shtml
+        非首页的url带有index标记页数
+        获取到的文章url缺少前缀部分
+        用basic_url补充完整
+        """
+        page = response.meta["page"]
+        url_list = response.selector.xpath('//div[@class="list_left"]/div[2]/div/ul/li/a/@href').extract()
+
+        for i in range(0, len(url_list)):
+            request = scrapy.Request(url=self.basic_url + url_list[i], callback=self.parse_pages)
+            yield request
+
+        page += 1
+        next_url = re.sub(r"_([\d]+)\.", '_' + str(page) + '.', response.url)
+        request = scrapy.Request(url=next_url, meta={"url_list": url_list, "page": page}, callback=self.get_url_list)
+        yield request
+
+    def parse_pages(self, response):
+        """
+        解析单个文章的网页，
+        例如：http://xz.workercn.cn/10930/201804/26/180426092830870.shtml
+        包括标题、文章类型、发表时间、来源、正文内容，
+        """
+        item = XZGHSpiderItem()
+        item["title"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[1]/span/text()').extract_first(
+            default="None")
+        item["type"] = response.selector.xpath('//div[@class="list_left"]/div[1]/div[1]/span/a[2]/text()').extract_first(
+            default="None")
+        item["publish_time"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[2]/span[1]/text()'
+                                                       ).extract_first(default="None")
+        item["source"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[2]/span[2]/text()'
+                                                 ).extract_first(default="None")
+        item["content"] = ''.join(response.selector.xpath('//div[@class="list_left"]/div[2]/div[3]/p/text()').extract())
+        return item
