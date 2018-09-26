@@ -13,7 +13,7 @@ class XZGHSpider(CrawlSpider):
     start_urls = [
         'http://xz.workercn.cn/10930/10930.shtml',
         'http://xz.workercn.cn/10850/10850.shtml',
-        'http://xz.workercn.cn/10858/10858.shtml',
+        'http://xz.workercn.cn/10858/10858.shtml'
     ]
     basic_url = 'http://xz.workercn.cn'
 

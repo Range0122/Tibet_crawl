@@ -31,7 +31,7 @@ class XZWSpider(CrawlSpider):
         # 宗教
         'http://www.tibet.cn/cn/religion/',
         # 生态
-        'http://www.tibet.cn/cn/ecology/',
+        'http://www.tibet.cn/cn/ecology/'
     ]
 
     def parse(self, response):

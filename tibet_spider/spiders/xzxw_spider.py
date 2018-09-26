@@ -41,7 +41,7 @@ class XZXWSpider(CrawlSpider):
         'http://www.xzxw.com/gongyi_5554/dongtai/',
         'http://www.xzxw.com/gongyi_5554/help/',
         # 生态：生态环保
-        'http://www.xzxw.com/xw/shengthb/',
+        'http://www.xzxw.com/xw/shengthb/'
     ]
 
     def parse(self, response):

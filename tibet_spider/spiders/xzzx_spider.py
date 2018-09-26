@@ -10,10 +10,12 @@ class XZZXSpider(CrawlSpider):
     # 西藏在线
     name = 'xzzx_spider'
     # 本网原创，其他藏区，西藏要闻，相关报道
-    start_urls = ['http://www.tibetol.cn/html/zixun/bwyc/',
-                  'http://www.tibetol.cn/html/zixun/qitazangqu/',
-                  'http://www.tibetol.cn/html/zixun/xizangyaowen/',
-                  'http://www.tibetol.cn/html/zixun/xgbd/']
+    start_urls = [
+        'http://www.tibetol.cn/html/zixun/bwyc/',
+        'http://www.tibetol.cn/html/zixun/qitazangqu/',
+        'http://www.tibetol.cn/html/zixun/xizangyaowen/',
+        'http://www.tibetol.cn/html/zixun/xgbd/'
+    ]
 
     def parse(self, response):
         """

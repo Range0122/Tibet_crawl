@@ -1,4 +1,4 @@
-x# -*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 import scrapy
 import re
@@ -14,7 +14,7 @@ class XZZSSpider(CrawlSpider):
         'http://www.vtibet.com/xw_702/yw_705/',
         'http://www.vtibet.com/xw_702/sz_704/',
         'http://www.vtibet.com/xw_702/sh_709/',
-        'http://www.vtibet.com/xw_702/jj_710/',
+        'http://www.vtibet.com/xw_702/jj_710/'
     ]
 
     def parse(self, response):
