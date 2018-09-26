@@ -30,7 +30,7 @@ class XZXWSpider(CrawlSpider):
         'http://www.xzxw.com/jysp/xzrbpl/',
         'http://www.xzxw.com/jysp/xzgc/',
         'http://www.xzxw.com/jysp/zfkj/',
-        # 教育：教育要闻，考试中心，培训导学，人才就业，西藏班
+        # g：教育要闻，考试中心，培训导学，人才就业，西藏班
         'http://www.xzxw.com/wh/jyyw/',
         'http://www.xzxw.com/wh/kszx/',
         'http://www.xzxw.com/wh/pxdx/',
