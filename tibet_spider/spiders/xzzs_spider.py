@@ -11,9 +11,9 @@ class XZZSSpider(CrawlSpider):
     name = 'xzzs_spider'
     # 要闻，时政，社会，经济
     start_urls = [
-        'http://www.vtibet.com/xw_702/yw_705/',
-        'http://www.vtibet.com/xw_702/sz_704/',
-        'http://www.vtibet.com/xw_702/sh_709/',
+        # 'http://www.vtibet.com/xw_702/yw_705/',
+        # 'http://www.vtibet.com/xw_702/sz_704/',
+        # 'http://www.vtibet.com/xw_702/sh_709/',
         'http://www.vtibet.com/xw_702/jj_710/'
     ]
 
@@ -47,9 +47,13 @@ class XZZSSpider(CrawlSpider):
         page = response.meta["page"]
         url_list = response.selector.xpath('//table[@class=" tt"]/tbody/tr[1]/td/a/@onclick').extract()
         for i in range(0, len(url_list)):
-            url_list[i] = url_list[i][:-5].replace('openurl(\'./', response.meta["basic_url"])
-            request = scrapy.Request(url=url_list[i], callback=self.parse_pages)
-            yield request
+            try:
+                url_list[i] = url_list[i][:-5].replace('openurl(\'./', response.meta["basic_url"])
+                request = scrapy.Request(url=url_list[i], callback=self.parse_pages)
+                yield request
+
+            except Exception as e:
+                print(e)
 
         page += 1
         next_url = re.sub(r"index_([\d]+)", 'index_' + str(page), response.url)
