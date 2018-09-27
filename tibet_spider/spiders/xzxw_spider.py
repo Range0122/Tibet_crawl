@@ -30,7 +30,7 @@ class XZXWSpider(CrawlSpider):
         'http://www.xzxw.com/jysp/xzrbpl/',
         'http://www.xzxw.com/jysp/xzgc/',
         'http://www.xzxw.com/jysp/zfkj/',
-        # g：教育要闻，考试中心，培训导学，人才就业，西藏班
+        # 公益：教育要闻，考试中心，培训导学，人才就业，西藏班
         'http://www.xzxw.com/wh/jyyw/',
         'http://www.xzxw.com/wh/kszx/',
         'http://www.xzxw.com/wh/pxdx/',
@@ -50,6 +50,8 @@ class XZXWSpider(CrawlSpider):
         例如：http://www.xzxw.com/xw/xzyw/
         使用page变量记录当前的页数
         """
+        print(response.url)
+        basic_url = re.search(r'(http://www.xzxw.com/.*?/)', response.url)
         url_list = response.selector.xpath('//div[@class="wt695 left visit"]/div/ul/li/a/@href').extract()
 
         for i in range(0, len(url_list)):
@@ -59,7 +61,7 @@ class XZXWSpider(CrawlSpider):
 
         next_url = response.url + 'index_1.html'
         page = 1
-        request = scrapy.Request(url=next_url, meta={"url_list": url_list, "basic_url": response.url, "page": page},
+        request = scrapy.Request(url=next_url, meta={"url_list": url_list, "basic_url": basic_url, "page": page},
                                  callback=self.get_url_list)
         yield request
 
@@ -93,8 +95,7 @@ class XZXWSpider(CrawlSpider):
         对获得的数据进行了简单的清洗
         """
         item = XZXWSpiderItem()
-        item["title"] = response.selector.xpath('//div[@class="xw_content_title"]/h3/text()').extract_first(
-            default="None")
+        item["title"] = response.selector.xpath('//div[@class="xw_content_title"]/h3/text()').extract_first(default='').replace('\n', '')
         item["type"] = response.selector.xpath('//div[@class="nszw"]/p/a[2]/text()').extract_first(default="None")
         item["publish_time"] = response.selector.xpath(
             '//div[@class="xw_content_title"]/p/span[1]/text()').extract_first(default="None").replace('\n', '').replace(' ', '')
