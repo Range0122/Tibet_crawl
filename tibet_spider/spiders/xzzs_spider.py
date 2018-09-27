@@ -11,9 +11,9 @@ class XZZSSpider(CrawlSpider):
     name = 'xzzs_spider'
     # 要闻，时政，社会，经济
     start_urls = [
-        # 'http://www.vtibet.com/xw_702/yw_705/',
-        # 'http://www.vtibet.com/xw_702/sz_704/',
-        # 'http://www.vtibet.com/xw_702/sh_709/',
+        'http://www.vtibet.com/xw_702/yw_705/',
+        'http://www.vtibet.com/xw_702/sz_704/',
+        'http://www.vtibet.com/xw_702/sh_709/',
         'http://www.vtibet.com/xw_702/jj_710/'
     ]
 

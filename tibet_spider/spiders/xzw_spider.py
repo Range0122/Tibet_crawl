@@ -24,7 +24,7 @@ class XZWSpider(CrawlSpider):
         # 援藏：资讯，人物
         'http://www.tibet.cn/cn/aid_tibet/news/',
         'http://www.tibet.cn/cn/aid_tibet/rw/',
-        # 藏医药：行业动态，疾病诊疗，四季养生，
+        # 藏医药：行业动态，疾病诊疗，四季养生
         'http://www.tibet.cn/cn/medicine/news/',
         'http://www.tibet.cn/cn/medicine/jbzl/',
         'http://www.tibet.cn/cn/medicine/sjys/',
