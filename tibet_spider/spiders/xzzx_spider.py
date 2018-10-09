@@ -58,7 +58,6 @@ class XZZXSpider(CrawlSpider):
         例如：http://www.tibetol.cn/html/zixun/bwyc/2018/0904/39671.html
         包括标题、文章类型、发表时间、来源、正文内容，
         """
-        # print(response.body.decode('utf-8'))
         item = XZZXSpiderItem()
         item["title"] = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/text()').extract_first(
             default="None")
