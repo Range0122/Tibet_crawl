@@ -11,8 +11,8 @@ class XZGHSpider(CrawlSpider):
     name = 'xzgh_spider'
     # 时政要闻，工会动态，基层工会
     start_urls = [
-        'http://xz.workercn.cn/10930/10930.shtml',
-        'http://xz.workercn.cn/10850/10850.shtml',
+        # 'http://xz.workercn.cn/10930/10930.shtml',
+        # 'http://xz.workercn.cn/10850/10850.shtml',
         'http://xz.workercn.cn/10858/10858.shtml'
     ]
     basic_url = 'http://xz.workercn.cn'
@@ -30,7 +30,7 @@ class XZGHSpider(CrawlSpider):
             yield request
 
         next_url = response.url[:-6] + '_2.shtml'
-        page = 2
+        page = 20
         request = scrapy.Request(url=next_url, meta={"page": page}, callback=self.get_url_list)
         yield request
 
