@@ -62,7 +62,7 @@ def test_json(path):
         data = json.load(f)
         for item in data:
             temp = item["content"]
-            print(temp)
+            # print(temp)
 
 
 if __name__ == '__main__':
@@ -74,6 +74,6 @@ if __name__ == '__main__':
     # test_json("./tibet_spider/result/xzw/xzw_total-0927.json")
 
     # clean_json("./tibet_spider/result/xzgh/xzgh-0926.json", "./tibet_spider/result/xzgh/xzgh_new.json")
-    test_json('./tibet_spider/xzgh_spider-20181011.json')
+    test_json('./tibet_spider/xzzs_spider-20181011.json')
 
 

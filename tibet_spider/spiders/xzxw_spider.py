@@ -15,33 +15,33 @@ class XZXWSpider(CrawlSpider):
     name = 'xzxw_spider'
     start_urls = [
         # 新闻：西藏要闻，民生新闻，科技新闻，法制西藏，科教文卫
-        # 'http://www.xzxw.com/xw/xzyw/',
-        # 'http://www.xzxw.com/xw/msxw/',
-        # 'http://www.xzxw.com/xw/cjxw/',
-        # 'http://www.xzxw.com/xw/fzxz/',
-        # 'http://www.xzxw.com/xw/kjww/',
-        # # 政务：政务要闻，新闻发布会，权威发布，人事任免，政府公告
-        # 'http://www.xzxw.com/zw/zwyw/',
-        # 'http://www.xzxw.com/zw/xwfbh/',
-        # 'http://www.xzxw.com/zw/qwfb/',
-        # 'http://www.xzxw.com/zw/rsrm/',
-        # 'http://www.xzxw.com/zw/zfgg/',
-        # # 时评：西藏日报，西藏观察，珠峰快见
-        # 'http://www.xzxw.com/jysp/xzrbpl/',
-        # 'http://www.xzxw.com/jysp/xzgc/',
-        # 'http://www.xzxw.com/jysp/zfkj/',
-        # # 教育：教育要闻，考试中心，培训导学，人才就业，西藏班
-        # 'http://www.xzxw.com/wh/jyyw/',
-        # 'http://www.xzxw.com/wh/kszx/',
-        # 'http://www.xzxw.com/wh/pxdx/',
-        # 'http://www.xzxw.com/wh/rcjy/',
-        # 'http://www.xzxw.com/wh/xzb/',
-        # # 公益：公益新闻，公益动态，公益救助
-        # 'http://www.xzxw.com/gongyi_5554/gyxw/',
-        # 'http://www.xzxw.com/gongyi_5554/dongtai/',
-        # 'http://www.xzxw.com/gongyi_5554/help/',
-        # # 生态：生态环保
-        # 'http://www.xzxw.com/xw/shengthb/'
+        'http://www.xzxw.com/xw/xzyw/',
+        'http://www.xzxw.com/xw/msxw/',
+        'http://www.xzxw.com/xw/cjxw/',
+        'http://www.xzxw.com/xw/fzxz/',
+        'http://www.xzxw.com/xw/kjww/',
+        # 政务：政务要闻，新闻发布会，权威发布，人事任免，政府公告
+        'http://www.xzxw.com/zw/zwyw/',
+        'http://www.xzxw.com/zw/xwfbh/',
+        'http://www.xzxw.com/zw/qwfb/',
+        'http://www.xzxw.com/zw/rsrm/',
+        'http://www.xzxw.com/zw/zfgg/',
+        # 时评：西藏日报，西藏观察，珠峰快见
+        'http://www.xzxw.com/jysp/xzrbpl/',
+        'http://www.xzxw.com/jysp/xzgc/',
+        'http://www.xzxw.com/jysp/zfkj/',
+        # 教育：教育要闻，考试中心，培训导学，人才就业，西藏班
+        'http://www.xzxw.com/wh/jyyw/',
+        'http://www.xzxw.com/wh/kszx/',
+        'http://www.xzxw.com/wh/pxdx/',
+        'http://www.xzxw.com/wh/rcjy/',
+        'http://www.xzxw.com/wh/xzb/',
+        # 公益：公益新闻，公益动态，公益救助
+        'http://www.xzxw.com/gongyi_5554/gyxw/',
+        'http://www.xzxw.com/gongyi_5554/dongtai/',
+        'http://www.xzxw.com/gongyi_5554/help/',
+        # 生态：生态环保
+        'http://www.xzxw.com/xw/shengthb/'
     ]
 
     def parse(self, response):
