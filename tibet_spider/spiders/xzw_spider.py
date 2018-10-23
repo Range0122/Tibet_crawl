@@ -90,6 +90,6 @@ class XZWSpider(CrawlSpider):
             .extract_first(default="None").replace('\n', '').replace(' ', '')
         item["source"] = response.selector.xpath('//div[@class="title_box"]/div[1]/span[3]/text()').extract_first(
             default="None").replace('\n', '').replace(' ', '')
-        item["content"] = ''.join(response.selector.xpath('//div[@class="text botborder"]/p/text()').extract())
+        item["content"] = ''.join(response.selector.xpath('//div[@class="text botborder"]/p').xpath('string(.)').extract())
 
         return item

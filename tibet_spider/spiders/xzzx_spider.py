@@ -65,19 +65,6 @@ class XZZXSpider(CrawlSpider):
             default="None")
         temp = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/span/text()').extract_first(default="None")
         item["publish_time"] = temp[:19]
-        item["source"] = temp[19:]
-        item["content"] = ''.join(response.selector.xpath('//div[@class="content"]/table/tr/td/p/text()').extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tr/td/div/text()').extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tr/td/div/div/text()'
-                                                           ).extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tr/td/div/div/div/text()'
-                                                            ).extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tbody/tr/td/p/text()'
-                                                           ).extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tbody/tr/td/div/text()'
-                                                           ).extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tbody/tr/td/div/div/text()'
-                                                           ).extract())
-        item["content"] += ''.join(response.selector.xpath('//div[@class="content"]/table/tbody/tr/td/div/div/div/'
-                                                           'text()').extract())
+        item["source"] = temp[19:] or "None"
+        item["content"] = ''.join(response.selector.xpath('//div[@class="content"]').xpath('string(.)').extract())
         return item

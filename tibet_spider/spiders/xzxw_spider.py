@@ -14,28 +14,36 @@ class XZXWSpider(CrawlSpider):
     # 中国西藏新闻网
     name = 'xzxw_spider'
     start_urls = [
-        # 新闻：西藏要闻，民生新闻，科技新闻，法制西藏，科教文卫
+        # 西藏新闻：西藏要闻，民生新闻，科技新闻，法制西藏，科教文卫
         'http://www.xzxw.com/xw/xzyw/',
         'http://www.xzxw.com/xw/msxw/',
         'http://www.xzxw.com/xw/cjxw/',
         'http://www.xzxw.com/xw/fzxz/',
         'http://www.xzxw.com/xw/kjww/',
-        # 政务：政务要闻，新闻发布会，权威发布，人事任免，政府公告
+        # 政务要闻：政务要闻，新闻发布会，权威发布，人事任免，政府公告
         'http://www.xzxw.com/zw/zwyw/',
         'http://www.xzxw.com/zw/xwfbh/',
         'http://www.xzxw.com/zw/qwfb/',
         'http://www.xzxw.com/zw/rsrm/',
         'http://www.xzxw.com/zw/zfgg/',
-        # 时评：西藏日报，西藏观察，珠峰快见
+        # 九眼时评：西藏日报，西藏观察，珠峰快见
         'http://www.xzxw.com/jysp/xzrbpl/',
         'http://www.xzxw.com/jysp/xzgc/',
         'http://www.xzxw.com/jysp/zfkj/',
-        # 教育：教育要闻，考试中心，培训导学，人才就业，西藏班
+        # 教育文化：教育要闻，考试中心，培训导学，人才就业，西藏班
         'http://www.xzxw.com/wh/jyyw/',
         'http://www.xzxw.com/wh/kszx/',
         'http://www.xzxw.com/wh/pxdx/',
         'http://www.xzxw.com/wh/rcjy/',
         'http://www.xzxw.com/wh/xzb/',
+        # 旅游人文：资讯空间，触摸西藏，旅游伴侣，藏地生活，人文笔记，西藏艺术，高原视野
+        'http://www.xzxw.com/lyrw/zxkj/',
+        'http://www.xzxw.com/lyrw/cmxz/',
+        'http://www.xzxw.com/lyrw/lybl/',
+        'http://www.xzxw.com/lyrw/zdsh/',
+        'http://www.xzxw.com/lyrw/rwbj/',
+        'http://www.xzxw.com/lyrw/xzys/',
+        'http://www.xzxw.com/lyrw/gysy/',
         # 公益：公益新闻，公益动态，公益救助
         'http://www.xzxw.com/gongyi_5554/gyxw/',
         'http://www.xzxw.com/gongyi_5554/dongtai/',
@@ -113,7 +121,6 @@ class XZXWSpider(CrawlSpider):
         item["source"] = response.selector.xpath('//div[@class="xw_content_title"]/p/span[2]/text()').extract_first(
             default="None").replace('\n', '').replace(' ', '')
         item["source"] = ''.join(item["source"].split())
-        temp_content = ''.join(response.selector.xpath('//div[@class="xw_daodu_detail"]').xpath('string(.)').extract_first())
-        item["content"] = temp_content[:-28].replace('\n', '').replace(' ', '')
+        item["content"] = ''.join(response.selector.xpath('//div[@class="xw_daodu_detail"]').xpath('string(.)').extract())
 
         return item

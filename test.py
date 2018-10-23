@@ -74,6 +74,9 @@ if __name__ == '__main__':
     # test_json("./tibet_spider/result/xzw/xzw_total-0927.json")
 
     # clean_json("./tibet_spider/result/xzgh/xzgh-0926.json", "./tibet_spider/result/xzgh/xzgh_new.json")
-    test_json('./tibet_spider/xzzs_spider-20181011.json')
-
-
+    # test_json('./tibet_spider/xzzs_spider-20181011.json')
+    test_string = "Nonedasdjkascbdqwhduqwkdah"
+    t = test_string[:19]
+    s = test_string[19:] or "None"
+    print(t)
+    print(s)

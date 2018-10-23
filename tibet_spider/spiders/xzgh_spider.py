@@ -9,11 +9,14 @@ from scrapy.spiders import CrawlSpider
 class XZGHSpider(CrawlSpider):
     # 西藏工会新闻网
     name = 'xzgh_spider'
-    # 时政要闻，工会动态，基层工会
+    # 时政要闻，工会动态，基层工会，西藏风情，社会民生，职工文化
     start_urls = [
         'http://xz.workercn.cn/10930/10930.shtml',
         'http://xz.workercn.cn/10850/10850.shtml',
-        'http://xz.workercn.cn/10858/10858.shtml'
+        'http://xz.workercn.cn/10858/10858.shtml',
+        'http://xz.workercn.cn/29369/29369.shtml',
+        'http://xz.workercn.cn/10864/10864.shtml',
+        'http://xz.workercn.cn/29556/29556.shtml'
     ]
     basic_url = 'http://xz.workercn.cn'
 

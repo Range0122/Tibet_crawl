@@ -78,5 +78,7 @@ class XZZSSpider(CrawlSpider):
             .extract_first(default="None")
         item["source"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[2]/div[1]/em/text()').extract_first(
             default="None").replace('\n', '').replace(' ', '')
-        item["content"] = ''.join(response.selector.xpath('//div[@class="ne_cont_show"]/p/text()').extract())
+        item["content"] = ''.join(response.selector.xpath('//div[@class="ne_cont_show"]/p').xpath('string()').extract()) \
+                          + ''.join(response.selector.xpath('//div[@class="ne_cont_show"]/span').xpath('string()').extract())
+
         return item

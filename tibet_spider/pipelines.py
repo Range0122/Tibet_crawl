@@ -17,6 +17,7 @@ class TibetSpiderPipeline(object):
         content = re.sub('本网记者....', '', content)
         content = re.sub('（.*?记者.*?）', '', content)
         content = re.sub('（.*?编辑.*?）', '', content)
+        content = re.sub('（.*?文.*?）', '', content)
         content = re.sub('\t', '', content)
         clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
         for s in clean_list:
@@ -24,8 +25,9 @@ class TibetSpiderPipeline(object):
         return content
 
     def process_item(self, item, spider):
+        item["content"] = self.clean_item(item["content"])
+        # if item["title"] and item["content"] and item["type"] != 'None':
         if item["title"] and item["content"]:
-            item["content"] = self.clean_item(item["content"])
             self.file = codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
                                     + '.json', 'a', encoding="utf-8")
             lines = json.dumps(dict(item), ensure_ascii=False) + ",\n"
@@ -34,9 +36,12 @@ class TibetSpiderPipeline(object):
         return item
 
     def close_spider(self, spider):
-        with codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
-                                    + '.json', 'r', encoding="utf-8") as f1:
-            content = '[' + f1.read()[:-2] + ']'
+        try:
             with codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
-                                    + '.json', 'w', encoding="utf-8") as f2:
-                f2.write(content)
+                                        + '.json', 'r', encoding="utf-8") as f1:
+                content = '[' + f1.read()[:-2] + ']'
+                with codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+                                        + '.json', 'w', encoding="utf-8") as f2:
+                    f2.write(content)
+        except Exception as e:
+            print(e)
