@@ -66,6 +66,10 @@ def test_json(path):
 
 
 if __name__ == '__main__':
+    d = {"a": "aa", "b": "bbc"}
+    print(d["a"])
+    print(type(d))
+
     # result = clean_item(test)
     # print(result)
 
@@ -75,8 +79,9 @@ if __name__ == '__main__':
 
     # clean_json("./tibet_spider/result/xzgh/xzgh-0926.json", "./tibet_spider/result/xzgh/xzgh_new.json")
     # test_json('./tibet_spider/xzzs_spider-20181011.json')
-    test_string = "Nonedasdjkascbdqwhduqwkdah"
-    t = test_string[:19]
-    s = test_string[19:] or "None"
-    print(t)
-    print(s)
+
+    # test_string = "Nonedasdjkascbdqwhduqwkdah"
+    # t = test_string[:19]
+    # s = test_string[19:] or "None"
+    # print(t)
+    # print(s)
