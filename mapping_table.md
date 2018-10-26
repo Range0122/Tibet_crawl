@@ -72,12 +72,22 @@
 | 经济 | [链接](http://www.vtibet.com/xw_702/jj_710/) | 保留 |
 
 ## [西藏在线](http://www.tibetol.cn/)(xzzx_spider)
-| 分类 | 链接 | 标签 |
-| :--: | :--: | :--: |
-| 本网原创 | [链接](http://www.tibetol.cn/html/zixun/bwyc/) | 保留 |
-| 其他藏区 | [链接](http://www.tibetol.cn/html/zixun/qitazangqu/) | 保留 |
-| 西藏要闻 | [链接](http://www.tibetol.cn/html/zixun/xizangyaowen/) | 保留 |
-| 相关报道 | [链接](http://www.tibetol.cn/html/zixun/xgbd/) | 保留 |
+| 分类 | 目录名 | 链接 | 标签 |
+| :--: | :--: | :--: | :--: |
+| 资讯 | 本网原创 | [链接](http://www.tibetol.cn/html/zixun/bwyc/) | 保留 |
+|     | 其他藏区 | [链接](http://www.tibetol.cn/html/zixun/qitazangqu/) | 保留 |
+|     | 西藏要闻 | [链接](http://www.tibetol.cn/html/zixun/xizangyaowen/) | 保留 |
+|     | 相关报道 | [链接](http://www.tibetol.cn/html/zixun/xgbd/) | 保留 |
+| 文库 | 藏地往事 | [链接](http://www.tibetol.cn/html/wenzhai/zdws/) | 保留 |
+|     | 人与自然 | [链接](http://www.tibetol.cn/html/wenzhai/ryzr/) | 保留 |
+|     | 高原民俗 | [链接](http://www.tibetol.cn/html/wenzhai/gyms/) | 保留 |
+|     | 雪域文化 | [链接](http://www.tibetol.cn/html/wenzhai/yxwh/) | 保留 |
+|     | 圣地之旅 | [链接](http://www.tibetol.cn/html/wenzhai/sdzl/) | 保留 |
+|     | 文物考古 | [链接](http://www.tibetol.cn/html/wenzhai/wwkg/) | 保留 |
+|     | 学术理论 | [链接](http://www.tibetol.cn/html/wenzhai/wxxs/) | 保留 |
+|     | 古今人物 | [链接](http://www.tibetol.cn/html/wenzhai/gjrw/) | 保留 |
+| 读书 | 书讯 | [链接](http://www.tibetol.cn/html/dushu/sx/) | 保留 |
+|     | 书评 | [链接](http://www.tibetol.cn/html/dushu/sp/) | 保留 |
 
 
 文化、政治、社会-> train.json

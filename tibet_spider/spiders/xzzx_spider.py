@@ -9,12 +9,24 @@ from scrapy.spiders import CrawlSpider
 class XZZXSpider(CrawlSpider):
     # 西藏在线
     name = 'xzzx_spider'
-    # 本网原创，其他藏区，西藏要闻，相关报道
     start_urls = [
+        # 资讯：本网原创，其他藏区，西藏要闻，相关报道
         'http://www.tibetol.cn/html/zixun/bwyc/',
         'http://www.tibetol.cn/html/zixun/qitazangqu/',
         'http://www.tibetol.cn/html/zixun/xizangyaowen/',
         'http://www.tibetol.cn/html/zixun/xgbd/'
+        # 文库：藏地往事，人与自然，高原民俗，雪域文化，圣地之旅，文物考古，学术理论，古今人物
+        'http://www.tibetol.cn/html/wenzhai/zdws/',
+        'http://www.tibetol.cn/html/wenzhai/ryzr/',
+        'http://www.tibetol.cn/html/wenzhai/gyms/',
+        'http://www.tibetol.cn/html/wenzhai/yxwh/',
+        'http://www.tibetol.cn/html/wenzhai/sdzl/',
+        'http://www.tibetol.cn/html/wenzhai/wwkg/',
+        'http://www.tibetol.cn/html/wenzhai/wxxs/',
+        'http://www.tibetol.cn/html/wenzhai/gjrw/',
+        # 读书：书讯，书评
+        'http://www.tibetol.cn/html/dushu/sx/',
+        'http://www.tibetol.cn/html/dushu/sp/'
     ]
 
     def parse(self, response):
