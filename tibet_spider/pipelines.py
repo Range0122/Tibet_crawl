@@ -65,15 +65,15 @@ class TibetSpiderPipeline(object):
         "公益救助": "社会",
         "生态环保": "生态环保",
         # 西藏之声
-        "要闻": "保留",
+        "要闻": "要闻",
         "时政": "政治",
         "社会": "社会",
-        "经济": "保留",
+        "经济": "经济",
         # 西藏在线
-        "本网原创": "保留",
-        "其他藏区": "保留",
-        "相关报道": "保留",
-        "藏地往事": "保留",
+        "本网原创": "本网原创",
+        "其他藏区": "其他藏区",
+        "相关报道": "相关报道",
+        "藏地往事": "藏地往事",
         "人与自然": "保留",
         "高原民俗": "保留",
         "雪域文化": "保留",
@@ -98,11 +98,10 @@ class TibetSpiderPipeline(object):
 
     def process_item(self, item, spider):
         item["content"] = self.clean_item(item["content"])
-        # if item["title"] and item["content"] and item["type"] != 'None':
         if item["title"] and item["content"]:
             self.file = codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
                                     + '.json', 'a', encoding="utf-8")
-            lines = json.dumps(dict(item), ensure_ascii=False) +",\n"
+            lines = json.dumps(dict(item), ensure_ascii=False) + ",\n"
             self.file.write(lines)
             self.file.close()
         return item

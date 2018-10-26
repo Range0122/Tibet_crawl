@@ -84,7 +84,7 @@ class XZWSpider(CrawlSpider):
         """
         item = XZWSpiderItem()
         item["title"] = response.selector.xpath('//div[@class="title_box"]/h2/text()').extract_first(
-            default="None")
+            default="")
         temp_type = response.selector.xpath('//body/div[@class="wrap"]/div[1]/a[2]/text()').extract_first(default="None")
         item["type"] = response.selector.xpath('//body/div[@class="wrap"]/div[1]/a[3]/text()').extract_first(default=temp_type)
         item["publish_time"] = response.selector.xpath('//div[@class="title_box"]/div[1]/span[2]/text()')\

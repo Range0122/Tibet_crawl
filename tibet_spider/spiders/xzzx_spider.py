@@ -14,7 +14,7 @@ class XZZXSpider(CrawlSpider):
         'http://www.tibetol.cn/html/zixun/bwyc/',
         'http://www.tibetol.cn/html/zixun/qitazangqu/',
         'http://www.tibetol.cn/html/zixun/xizangyaowen/',
-        'http://www.tibetol.cn/html/zixun/xgbd/'
+        'http://www.tibetol.cn/html/zixun/xgbd/',
         # 文库：藏地往事，人与自然，高原民俗，雪域文化，圣地之旅，文物考古，学术理论，古今人物
         'http://www.tibetol.cn/html/wenzhai/zdws/',
         'http://www.tibetol.cn/html/wenzhai/ryzr/',
@@ -41,11 +41,11 @@ class XZZXSpider(CrawlSpider):
             request = scrapy.Request(url=url_list[i], callback=self.parse_pages)
             yield request
 
-        next_url = response.url + '2.html'
-        page = 2
-        request = scrapy.Request(url=next_url, meta={"url_list": url_list, "page": page},
-                                 callback=self.get_url_list)
-        yield request
+        # next_url = response.url + '2.html'
+        # page = 2
+        # request = scrapy.Request(url=next_url, meta={"url_list": url_list, "page": page},
+        #                          callback=self.get_url_list)
+        # yield request
 
     def get_url_list(self, response):
         """
@@ -71,8 +71,7 @@ class XZZXSpider(CrawlSpider):
         包括标题、文章类型、发表时间、来源、正文内容，
         """
         item = XZZXSpiderItem()
-        item["title"] = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/text()').extract_first(
-            default="None")
+        item["title"] = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/text()').extract_first(default="")
         item["type"] = response.selector.xpath('//div[@class="col-left"]/div[1]/a[3]/text()').extract_first(
             default="None")
         temp = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/span/text()').extract_first(default="None")

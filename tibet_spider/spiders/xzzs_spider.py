@@ -70,8 +70,7 @@ class XZZSSpider(CrawlSpider):
         对获得的数据进行了简单的清洗
         """
         item = XZZSSpiderItem()
-        item["title"] = response.selector.xpath('//div[@class="ne_cont_l"]/h1/text()').extract_first(
-            default="None")
+        item["title"] = response.selector.xpath('//div[@class="ne_cont_l"]/h1/text()').extract_first(default="")
         item["type"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[1]/a[3]/text()'
                                                ).extract_first(default="None")
         item["publish_time"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[2]/div[1]/text()')\

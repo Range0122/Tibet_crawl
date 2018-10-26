@@ -66,13 +66,15 @@ def test_json(path):
 
 
 if __name__ == '__main__':
-    # with open('tibet_spider/xzxw_spider-20181026.json', 'r') as f:
-    with open('tibet_spider/result/xzzx_spider-20181012.json', 'r') as f:
+    with open('tibet_spider/xzzx_spider-20181026.json', 'r') as f:
+    # with open('tibet_spider/result/xzzx_spider-20181012.json', 'r') as f:
         data = json.load(f)
         data_type = []
         type_list = []
+        i = 0
 
         for item in data:
+            i += 1
             type_list.append(item["type"])
             if item["type"] not in data_type:
                 data_type.append(item["type"])
@@ -83,6 +85,7 @@ if __name__ == '__main__':
 
         print(len(data_type))
         print(data_type)
+        print(i)
 
     # dic = {"a": "aa"}
 

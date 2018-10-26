@@ -65,7 +65,7 @@ class XZGHSpider(CrawlSpider):
         """
         item = XZGHSpiderItem()
         item["title"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[1]/span/text()').extract_first(
-            default="None")
+            default="")
         item["type"] = response.selector.xpath('//div[@class="list_left"]/div[1]/div[1]/span/a[2]/text()').extract_first(
             default="None")
         item["publish_time"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[2]/span[1]/text()'
