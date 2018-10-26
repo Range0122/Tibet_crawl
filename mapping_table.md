@@ -35,7 +35,7 @@
 | :--: | :--: | :--: | :--: |
 | 西藏新闻 | 西藏要闻 | [链接](http://www.xzxw.com/xw/xzyw/) |	保留 |
 |     | 民生新闻 | [链接](http://www.xzxw.com/xw/msxw/) |	社会 |
-|     | 科技新闻 | [链接](http://www.xzxw.com/xw/cjxw/) |	保留 |
+|     | 财经新闻 | [链接](http://www.xzxw.com/xw/cjxw/) |	保留 |
 |     | 法制西藏 | [链接](http://www.xzxw.com/xw/fzxz/) |	社会 |
 |     | 科教文卫 | [链接](http://www.xzxw.com/xw/kjww/) |	保留 |
 | 政务要闻 | 政务要闻 | [链接](http://www.xzxw.com/zw/zwyw/) |	政治 |
@@ -43,7 +43,7 @@
 |     | 权威发布 | [链接](http://www.xzxw.com/zw/qwfb/) |	保留 |
 |     | 人事任免 | [链接](http://www.xzxw.com/zw/rsrm/) |	保留 |
 |     | 政府公告 | [链接](http://www.xzxw.com/zw/zfgg/) |	保留 |
-| 九眼时评 | 西藏日报 | [链接](http://www.xzxw.com/jysp/xzrbpl/) |	保留 |
+| 九眼时评 | 西藏日报评论 | [链接](http://www.xzxw.com/jysp/xzrbpl/) |	保留 |
 |     | 西藏观察 | [链接](http://www.xzxw.com/jysp/xzgc/) | 保留 |
 |     | 珠峰快见 | [链接](http://www.xzxw.com/jysp/zfkj/) | 保留 |
 | 教育文化 | 教育要闻 | [链接](http://www.xzxw.com/wh/jyyw/) |	文化 |

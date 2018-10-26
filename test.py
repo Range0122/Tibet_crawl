@@ -66,9 +66,19 @@ def test_json(path):
 
 
 if __name__ == '__main__':
-    d = {"a": "aa", "b": "bbc"}
-    print(d["a"])
-    print(type(d))
+    # with open('tibet_spider/xzw_spider-20181025.json', 'r') as f:
+    with open('tibet_spider/result/xzzx_spider-20181012.json', 'r') as f:
+        data = json.load(f)
+        data_type = []
+
+        for item in data:
+            if item["type"] not in data_type:
+                data_type.append(item["type"])
+
+        print(len(data_type))
+        print(data_type)
+
+    # dic = {"a": "aa"}
 
     # result = clean_item(test)
     # print(result)
