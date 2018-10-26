@@ -41,11 +41,11 @@ class XZZXSpider(CrawlSpider):
             request = scrapy.Request(url=url_list[i], callback=self.parse_pages)
             yield request
 
-        # next_url = response.url + '2.html'
-        # page = 2
-        # request = scrapy.Request(url=next_url, meta={"url_list": url_list, "page": page},
-        #                          callback=self.get_url_list)
-        # yield request
+        next_url = response.url + '2.html'
+        page = 2
+        request = scrapy.Request(url=next_url, meta={"url_list": url_list, "page": page},
+                                 callback=self.get_url_list)
+        yield request
 
     def get_url_list(self, response):
         """

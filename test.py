@@ -80,12 +80,17 @@ if __name__ == '__main__':
                 data_type.append(item["type"])
 
         for item in data_type:
-            print(item)
-            print(type_list.count(item))
+            print(item, type_list.count(item))
+        print('\n')
 
-        print(len(data_type))
-        print(data_type)
-        print(i)
+        print('total %d' % i)
+        print('\n')
+
+        print(data_type, len(data_type))
+
+    # test_dic = {'A': 'a', 'B': 'b', }
+    # result = test_dic.get('a', 'none')
+    # print(result)
 
     # dic = {"a": "aa"}
 

@@ -73,11 +73,11 @@ class XZXWSpider(CrawlSpider):
             request = scrapy.Request(url=url_list[i], meta={"data_type": data_type}, callback=self.parse_pages)
             yield request
 
-        # next_url = response.url + 'index_1.html'
-        # page = 1
-        # request = scrapy.Request(url=next_url, meta={"url_list": url_list, "basic_url1": basic_url1,
-        #                                              "basic_url2": basic_url2, "page": page}, callback=self.get_url_list)
-        # yield request
+        next_url = response.url + 'index_1.html'
+        page = 1
+        request = scrapy.Request(url=next_url, meta={"url_list": url_list, "basic_url1": basic_url1,
+                                                     "basic_url2": basic_url2, "page": page}, callback=self.get_url_list)
+        yield request
 
     def get_url_list(self, response):
         """
