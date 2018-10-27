@@ -62,31 +62,63 @@ def test_json(path):
         data = json.load(f)
         for item in data:
             temp = item["content"]
+        print('OK')
             # print(temp)
 
 
 if __name__ == '__main__':
-    with open('tibet_spider/xzzx_spider-20181026.json', 'r') as f:
-    # with open('tibet_spider/result/xzzx_spider-20181012.json', 'r') as f:
-        data = json.load(f)
-        data_type = []
-        type_list = []
-        i = 0
+    # with open('tibet_spider/xzzs_spider-20181026.json', 'r') as f:
+    # # with open('tibet_spider/result/xzzx_spider-20181012.json', 'r') as f:
+    #     data = json.load(f)
+    #     data_type = []
+    #     type_list = []
+    #     i = 0
+    #
+    #     for item in data:
+    #         i += 1
+    #         type_list.append(item["type"])
+    #         if item["type"] not in data_type:
+    #             data_type.append(item["type"])
+    #
+    #     for item in data_type:
+    #         print(item, type_list.count(item))
+    #     print('\n')
+    #
+    #     print('total %d' % i)
+    #     print('\n')
+    #
+    #     print(data_type, len(data_type))
 
-        for item in data:
-            i += 1
-            type_list.append(item["type"])
-            if item["type"] not in data_type:
-                data_type.append(item["type"])
+    file_path = [
+        # 'tibet_spider/xzzs_spider-20181026.json',
+        # 'tibet_spider/xzgh_spider-20181026.json',
+        # 'tibet_spider/xzw_spider-20181026.json',
+        # 'tibet_spider/xzxw_spider-20181027.json',
+        # 'tibet_spider/xzzx_spider-20181026.json',
+        'data_test.json',
+        'data_train.json'
+    ]
 
-        for item in data_type:
-            print(item, type_list.count(item))
-        print('\n')
+    for path in file_path:
+        test_json(path)
+    #     with open(path, 'r') as f:
+    #         data = json.load(f)
+    #         for item in data:
+    #             if item["type"] == "政治":
+    #                 with open('politics.json', 'a') as f1:
+    #                     result = json.dumps(item, ensure_ascii=False)
+    #                     f1.write(result + ',\n')
+    #
+    #             elif item["type"] == "文化":
+    #                 with open('culture.json', 'a') as f2:
+    #                     result = json.dumps(item, ensure_asciis=False)
+    #                     f2.write(result + ',\n')
+    #
+    #             elif item["type"] == "社会":
+    #                 with open('society.json', 'a') as f3:
+    #                     result = json.dumps(item, ensure_ascii=False)
+    #                     f3.write(result + ',\n')
 
-        print('total %d' % i)
-        print('\n')
-
-        print(data_type, len(data_type))
 
     # test_dic = {'A': 'a', 'B': 'b', }
     # result = test_dic.get('a', 'none')

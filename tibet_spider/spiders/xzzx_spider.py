@@ -58,11 +58,12 @@ class XZZXSpider(CrawlSpider):
             request = scrapy.Request(url=url_list[i], callback=self.parse_pages)
             yield request
 
-        page = response.meta["page"]
-        page += 1
-        next_url = re.sub(r"([\d]+)", str(page), response.url)
-        request = scrapy.Request(url=next_url, meta={"page": page}, callback=self.get_url_list)
-        yield request
+        if url_list:
+            page = response.meta["page"]
+            page += 1
+            next_url = re.sub(r"([\d]+)", str(page), response.url)
+            request = scrapy.Request(url=next_url, meta={"page": page}, callback=self.get_url_list)
+            yield request
 
     def parse_pages(self, response):
         """

@@ -55,11 +55,12 @@ class XZZSSpider(CrawlSpider):
             except Exception as e:
                 print(e)
 
-        page += 1
-        next_url = re.sub(r"index_([\d]+)", 'index_' + str(page), response.url)
-        request = scrapy.Request(url=next_url, meta={"basic_url": response.meta["basic_url"],
-                                                     "page": page}, callback=self.get_url_list)
-        yield request
+        if url_list:
+            page += 1
+            next_url = re.sub(r"index_([\d]+)", 'index_' + str(page), response.url)
+            request = scrapy.Request(url=next_url, meta={"basic_url": response.meta["basic_url"],
+                                                         "page": page}, callback=self.get_url_list)
+            yield request
 
     def parse_pages(self, response):
         """
