@@ -12,10 +12,22 @@ def clean_item(content):
     content = re.sub('本网记者....', '', content)
     content = re.sub('（.*?记者.*?）', '', content)
     content = re.sub('（.*?编辑.*?）', '', content)
+    content = re.sub('（.*?文.*?）', '', content)
+    content = re.sub('（.*?来源.*?）', '', content)
+    content = re.sub('（.*?责编.*?）', '', content)
+    content = re.sub('责任编辑(.){,10}', '', content)
+    content = re.sub('编辑(.){,10}', '', content)
+    content = re.sub('责编(.){,10}', '', content)
     content = re.sub('\t', '', content)
+    content = re.sub('[a-zA-Z]', '', content)
+
     clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
     for s in clean_list:
         content = content.replace(s, '')
+
+    if len(content) < 66:
+        content = ''
+
     return content
 
 
@@ -50,23 +62,43 @@ def clean_json(sour_path, dest_path):
         data = json.load(f1)
         for item in data:
             item["content"] = clean_item(item["content"])
-            result = json.dumps(item, ensure_ascii=False)
-            with open(dest_path, 'a+', encoding='utf-8') as f2:
-                f2.write(result + ',\n')
-    with open(dest_path, 'a+', encoding='utf-8') as f2:
-        f2.write(']')
+            if item["content"]:
+                result = json.dumps(item, ensure_ascii=False)
+                with open(dest_path, 'a+', encoding='utf-8') as f2:
+                    f2.write(result + ',\n')
+    with open(dest_path, 'r', encoding='utf-8') as f2:
+        content = f2.read()[:-2]
+    with open(dest_path, 'w', encoding='utf-8') as f2:
+        f2.write(content + ']')
 
 
 def test_json(path):
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
         for item in data:
-            temp = item["content"]
-        print('OK')
+            try:
+                test_content = item["content"]
+                test_type = item["type"]
+                test_title = item["title"]
+                if not test_content or not test_type or not test_title:
+                    print("Something is empty!")
+            except Exception as e:
+                print("something is wrong!")
+                print(item["title"])
+                print(e)
+        print("finished!")
             # print(temp)
 
 
 if __name__ == '__main__':
+    # path = 'society.json'
+    # with open(path, 'r', encoding='utf-8') as f:
+    #     # data = json.load(f)
+    #     test_json(path)
+
+    # clean_json('society.json', 'test_society.json')
+    # test_json('test_society.json')
+
     # with open('tibet_spider/xzzs_spider-20181026.json', 'r') as f:
     # # with open('tibet_spider/result/xzzx_spider-20181012.json', 'r') as f:
     #     data = json.load(f)
@@ -89,18 +121,20 @@ if __name__ == '__main__':
     #
     #     print(data_type, len(data_type))
 
-    file_path = [
-        # 'tibet_spider/xzzs_spider-20181026.json',
-        # 'tibet_spider/xzgh_spider-20181026.json',
-        # 'tibet_spider/xzw_spider-20181026.json',
-        # 'tibet_spider/xzxw_spider-20181027.json',
-        # 'tibet_spider/xzzx_spider-20181026.json',
+    sour_path = [
+        'tibet_spider/result/train&test/data_test.json',
+        'tibet_spider/result/train&test/data_train.json'
+    ]
+
+    dest_path = [
         'data_test.json',
         'data_train.json'
     ]
 
-    for path in file_path:
-        test_json(path)
+    for i in range(len(sour_path)):
+        clean_json(sour_path=sour_path[i], dest_path=dest_path[i])
+        test_json(dest_path[i])
+
     #     with open(path, 'r') as f:
     #         data = json.load(f)
     #         for item in data:
@@ -118,7 +152,6 @@ if __name__ == '__main__':
     #                 with open('society.json', 'a') as f3:
     #                     result = json.dumps(item, ensure_ascii=False)
     #                     f3.write(result + ',\n')
-
 
     # test_dic = {'A': 'a', 'B': 'b', }
     # result = test_dic.get('a', 'none')

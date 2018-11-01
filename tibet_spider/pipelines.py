@@ -90,10 +90,43 @@ class TibetSpiderPipeline(object):
         content = re.sub('（.*?记者.*?）', '', content)
         content = re.sub('（.*?编辑.*?）', '', content)
         content = re.sub('（.*?文.*?）', '', content)
+        content = re.sub('（.*?来源.*?）', '', content)
+        content = re.sub('（.*?责编.*?）', '', content)
+        content = re.sub('责任编辑(.){,10}', '', content)
+        content = re.sub('编辑(.){,10}', '', content)
+        content = re.sub('责编(.){,10}', '', content)
         content = re.sub('\t', '', content)
+        content = re.sub('[a-zA-Z]', '', content)
+
         clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
         for s in clean_list:
             content = content.replace(s, '')
+
+        if len(content) < 66:
+            content = ''
+
+        return content
+
+    def clean_item(self, content):
+        content = re.sub('本网记者....', '', content)
+        content = re.sub('（.*?记者.*?）', '', content)
+        content = re.sub('（.*?编辑.*?）', '', content)
+        content = re.sub('（.*?文.*?）', '', content)
+        content = re.sub('（.*?来源.*?）', '', content)
+        content = re.sub('（.*?责编.*?）', '', content)
+        content = re.sub('责任编辑(.){,10}', '', content)
+        content = re.sub('编辑(.){,10}', '', content)
+        content = re.sub('责编(.){,10}', '', content)
+        content = re.sub('\t', '', content)
+        content = re.sub('[a-zA-Z]', '', content)
+
+        clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
+        for s in clean_list:
+            content = content.replace(s, '')
+
+        if len(content) < 66:
+            content = ''
+
         return content
 
     def process_item(self, item, spider):
