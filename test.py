@@ -90,6 +90,16 @@ def test_json(path):
             # print(temp)
 
 
+def select_json(path):
+    with open(path, 'r', encoding='utf-8') as f1:
+        data = json.load(f1)
+        for item in data:
+            if item["type"] == "经济":
+                with open("economic.json", 'a+', encoding='utf-8') as f2:
+                    result = json.dumps(item, ensure_ascii=False)
+                    f2.write(result + ',\n')
+
+
 if __name__ == '__main__':
     # path = 'society.json'
     # with open(path, 'r', encoding='utf-8') as f:
@@ -122,18 +132,26 @@ if __name__ == '__main__':
     #     print(data_type, len(data_type))
 
     sour_path = [
-        'tibet_spider/result/train&test/data_test.json',
-        'tibet_spider/result/train&test/data_train.json'
+        'tibet_spider/result/total/xzgh_spider-20181026.json',
+        'tibet_spider/result/total/xzw_spider-20181026.json',
+        'tibet_spider/result/total/xzxw_spider-20181027.json',
+        'tibet_spider/result/total/xzzs_spider-20181026.json',
+        'tibet_spider/result/total/xzzx_spider-20181026.json',
     ]
 
-    dest_path = [
-        'data_test.json',
-        'data_train.json'
-    ]
+    test_json('economic.json')
 
-    for i in range(len(sour_path)):
-        clean_json(sour_path=sour_path[i], dest_path=dest_path[i])
-        test_json(dest_path[i])
+    # for path in sour_path:
+    #     select_json(path)
+
+    # dest_path = [
+    #     'data_test.json',
+    #     'data_train.json'
+    # ]
+    #
+    # for i in range(len(sour_path)):
+    #     clean_json(sour_path=sour_path[i], dest_path=dest_path[i])
+    #     test_json(dest_path[i])
 
     #     with open(path, 'r') as f:
     #         data = json.load(f)

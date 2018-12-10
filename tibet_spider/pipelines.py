@@ -98,6 +98,29 @@ class TibetSpiderPipeline(object):
         content = re.sub('\t', '', content)
         content = re.sub('[a-zA-Z]', '', content)
 
+        RegExp = [
+            "新闻( )?(图片 )?来源.+?\n",
+            r'\d{4}( )?年[度初底末]',
+            r'\d{4}年\d+月\d+ [日晚]',
+            r'\d{4}( )?年\d+月(\d+[日号])?(\d+[时点])?(\d+分)?',
+            r'\d{4}( )?年(\d+)?',
+            r'\d+月\d+-\d+[日号]',
+            r'\d+月( )?\d+[日号](\d+[时点])?(\d+分)?',
+            r'\d+日',
+            r'(今年)?\d+月(\d+)?',
+            r'(上午)?\d+[时点](\d+分)?',
+            r'([上下]午)?\d+:\d+',
+            '[A-Za-z][0-9]+',
+            '[A-Za-z_&#*()+=.:：【】"“”]'
+        ]
+
+        # 循环匹配去除
+        for i in RegExp:
+            if i[len(i) - 1:] == '\n':
+                content = re.sub(i, '\n', content)
+            else:
+                content = re.sub(i, '', content)
+
         clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
         for s in clean_list:
             content = content.replace(s, '')
