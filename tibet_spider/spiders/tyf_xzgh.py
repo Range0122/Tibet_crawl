@@ -2,13 +2,13 @@
 
 import scrapy
 import re
-from tibet_spider.items import XZGHSpiderItem
+from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
 
 
 class XZGHSpider(CrawlSpider):
     # 西藏工会新闻网
-    name = 'xzgh_spider'
+    name = 'xzgh'
     # 时政要闻，工会动态，基层工会，西藏风情，社会民生，职工文化
     start_urls = [
         'http://xz.workercn.cn/10930/10930.shtml',
@@ -64,14 +64,16 @@ class XZGHSpider(CrawlSpider):
         例如：http://xz.workercn.cn/10930/201804/26/180426092830870.shtml
         包括标题、文章类型、发表时间、来源、正文内容，
         """
-        item = XZGHSpiderItem()
+        item = CrawlItem()
         item["title"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[1]/span/text()').extract_first(
             default="")
-        item["type"] = response.selector.xpath('//div[@class="list_left"]/div[1]/div[1]/span/a[2]/text()').extract_first(
+        item["raw_type"] = response.selector.xpath('//div[@class="list_left"]/div[1]/div[1]/span/a[2]/text()').extract_first(
             default="None")
+        item["type"] = item["raw_type"]
         item["publish_time"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[2]/span[1]/text()'
                                                        ).extract_first(default="None")
         item["source"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[2]/span[2]/text()'
                                                  ).extract_first(default="None")
+        item["url"] = response.url
         item["content"] = ''.join(response.selector.xpath('//div[@class="list_left"]/div[2]/div[3]/p/text()').extract())
         return item

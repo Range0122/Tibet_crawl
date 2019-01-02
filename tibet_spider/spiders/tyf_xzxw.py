@@ -6,13 +6,13 @@ import re
 import time
 import traceback
 import json
-from tibet_spider.items import XZXWSpiderItem
+from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
 
 
 class XZXWSpider(CrawlSpider):
     # 中国西藏新闻网
-    name = 'xzxw_spider'
+    name = 'xzxw'
     start_urls = [
         # 西藏新闻：西藏要闻，民生新闻，财经新闻，法制西藏，科教文卫
         'http://www.xzxw.com/xw/xzyw/',
@@ -117,10 +117,11 @@ class XZXWSpider(CrawlSpider):
         并使用replace、join函数
         对获得的数据进行了简单的清洗
         """
-        item = XZXWSpiderItem()
+        item = CrawlItem()
         item["title"] = response.selector.xpath('//div[@class="xw_content_title"]/h3/text()').extract_first(default='').replace('\n', '') + \
                      response.selector.xpath('//div[@class="tbig_title"]/h1/text()').extract_first(default='').replace('\n', '')
-        item["type"] = response.meta["data_type"]
+        item["raw_type"] = response.meta["data_type"]
+        item["type"] = item["raw_type"]
         temp = response.selector.xpath('//body/div[5]/div[1]/text()').extract_first(default="None")
         item["publish_time"] = response.selector.xpath(
             '//div[@class="xw_content_title"]/p/span[1]/text()').extract_first(default=temp[:18]).replace('\n', '').replace(' ', '')

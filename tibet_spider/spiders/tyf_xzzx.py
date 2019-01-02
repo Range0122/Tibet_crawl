@@ -2,7 +2,7 @@
 
 import scrapy
 import re
-from tibet_spider.items import XZZXSpiderItem
+from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
 
 
@@ -71,10 +71,11 @@ class XZZXSpider(CrawlSpider):
         例如：http://www.tibetol.cn/html/zixun/bwyc/2018/0904/39671.html
         包括标题、文章类型、发表时间、来源、正文内容，
         """
-        item = XZZXSpiderItem()
+        item = CrawlItem()
         item["title"] = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/text()').extract_first(default="")
-        item["type"] = response.selector.xpath('//div[@class="col-left"]/div[1]/a[3]/text()').extract_first(
+        item["raw_type"] = response.selector.xpath('//div[@class="col-left"]/div[1]/a[3]/text()').extract_first(
             default="None")
+        item["type"] = item["raw_type"]
         temp = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/span/text()').extract_first(default="None")
         item["publish_time"] = temp[:19]
         item["source"] = temp[19:] or "None"

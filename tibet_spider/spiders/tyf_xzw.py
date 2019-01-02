@@ -2,13 +2,13 @@
 
 import scrapy
 import re
-from tibet_spider.items import XZWSpiderItem
+from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
 
 
 class XZWSpider(CrawlSpider):
     # 中国西藏网
-    name = 'xzw_spider'
+    name = 'xzw'
     start_urls = [
         # 新闻：原创，资讯，藏区动态
         'http://www.tibet.cn/cn/news/yc/',
@@ -83,11 +83,12 @@ class XZWSpider(CrawlSpider):
         并使用replace、join函数
         对获得的数据进行了简单的清洗
         """
-        item = XZWSpiderItem()
+        item = CrawlItem()
         item["title"] = response.selector.xpath('//div[@class="title_box"]/h2/text()').extract_first(
             default="")
         temp_type = response.selector.xpath('//body/div[@class="wrap"]/div[1]/a[2]/text()').extract_first(default="None")
-        item["type"] = response.selector.xpath('//body/div[@class="wrap"]/div[1]/a[3]/text()').extract_first(default=temp_type)
+        item["raw_type"] = response.selector.xpath('//body/div[@class="wrap"]/div[1]/a[3]/text()').extract_first(default=temp_type)
+        item["type"] = item["raw_type"]
         item["publish_time"] = response.selector.xpath('//div[@class="title_box"]/div[1]/span[2]/text()')\
             .extract_first(default="None").replace('\n', '').replace(' ', '')
         item["source"] = response.selector.xpath('//div[@class="title_box"]/div[1]/span[3]/text()').extract_first(

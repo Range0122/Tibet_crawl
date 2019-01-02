@@ -85,45 +85,42 @@ class TibetSpiderPipeline(object):
         "书评": "文化"
     }
 
+    reg_exp = [
+        '本网记者....',
+        '（.*?记者.*?）',
+        '（.*?编辑.*?）',
+        '（.*?文.*?）',
+        '（.*?来源.*?）',
+        '（.*?责编.*?）',
+        '责任编辑(.){,10}',
+        '编辑(.){,10}',
+        '责编(.){,10}',
+        '[a-zA-Z]',
+        "新闻( )?(图片 )?来源.+?\n",
+        r'\d{4}( )?年[度初底末]',
+        r'\d{4}年\d+月\d+ [日晚]',
+        r'\d{4}( )?年\d+月(\d+[日号])?(\d+[时点])?(\d+分)?',
+        r'\d{4}( )?年(\d+)?',
+        r'\d+月\d+-\d+[日号]',
+        r'\d+月( )?\d+[日号](\d+[时点])?(\d+分)?',
+        r'\d+日',
+        r'(今年)?\d+月(\d+)?',
+        r'(上午)?\d+[时点](\d+分)?',
+        r'([上下]午)?\d+:\d+',
+        '[A-Za-z][0-9]+',
+        '[A-Za-z_&#*()+=.:：【】"“”]'
+    ]
+
+    clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
+
     def clean_item(self, content):
-        content = re.sub('本网记者....', '', content)
-        content = re.sub('（.*?记者.*?）', '', content)
-        content = re.sub('（.*?编辑.*?）', '', content)
-        content = re.sub('（.*?文.*?）', '', content)
-        content = re.sub('（.*?来源.*?）', '', content)
-        content = re.sub('（.*?责编.*?）', '', content)
-        content = re.sub('责任编辑(.){,10}', '', content)
-        content = re.sub('编辑(.){,10}', '', content)
-        content = re.sub('责编(.){,10}', '', content)
-        content = re.sub('\t', '', content)
-        content = re.sub('[a-zA-Z]', '', content)
-
-        RegExp = [
-            "新闻( )?(图片 )?来源.+?\n",
-            r'\d{4}( )?年[度初底末]',
-            r'\d{4}年\d+月\d+ [日晚]',
-            r'\d{4}( )?年\d+月(\d+[日号])?(\d+[时点])?(\d+分)?',
-            r'\d{4}( )?年(\d+)?',
-            r'\d+月\d+-\d+[日号]',
-            r'\d+月( )?\d+[日号](\d+[时点])?(\d+分)?',
-            r'\d+日',
-            r'(今年)?\d+月(\d+)?',
-            r'(上午)?\d+[时点](\d+分)?',
-            r'([上下]午)?\d+:\d+',
-            '[A-Za-z][0-9]+',
-            '[A-Za-z_&#*()+=.:：【】"“”]'
-        ]
-
         # 循环匹配去除
-        for i in RegExp:
-            if i[len(i) - 1:] == '\n':
-                content = re.sub(i, '\n', content)
-            else:
-                content = re.sub(i, '', content)
 
-        clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
-        for s in clean_list:
-            content = content.replace(s, '')
+        for item in self.reg_exp:
+            content = re.sub(item, '', content)
+
+        for item in self.clean_list:
+            content = content.replace(item, '')
 
         if len(content) < 66:
             content = ''
@@ -132,25 +129,24 @@ class TibetSpiderPipeline(object):
 
     def process_item(self, item, spider):
         item["content"] = self.clean_item(item["content"])
-        item["type"] = self.clean_item(item["type"])
-
-        # item["type"] = self.mapping_table.get(item["type"], item["type"])
-        item["type"] = self.mapping_table.get(item["type"], "未分类")
 
         if item["title"] and item["content"]:
-            self.file = codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
-                                    + '.json', 'a', encoding="utf-8")
-            lines = json.dumps(dict(item), ensure_ascii=False) + ",\n"
-            self.file.write(lines)
-            self.file.close()
+            item["type"] = self.mapping_table.get(item["raw_type"], item["type"])
+            # item["type"] = self.mapping_table.get(item["raw_type"], "未分类")
+
+            with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+                                    + '.json', 'a', encoding="utf-8") as f:
+                lines = json.dumps(dict(item), ensure_ascii=False) + ",\n"
+                f.write(lines)
+
         return item
 
     def close_spider(self, spider):
         try:
-            with codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+            with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
                                         + '.json', 'r', encoding="utf-8") as f1:
                 content = '[' + f1.read()[:-2] + ']'
-                with codecs.open(str(spider.name) + '-' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+                with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
                                         + '.json', 'w', encoding="utf-8") as f2:
                     f2.write(content)
         except Exception as e:

@@ -2,13 +2,13 @@
 
 import scrapy
 import re
-from tibet_spider.items import XZZSSpiderItem
+from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
 
 
 class XZZSSpider(CrawlSpider):
     # 西藏之声
-    name = 'xzzs_spider'
+    name = 'xzzs'
     # 要闻，时政，社会，经济
     start_urls = [
         'http://www.vtibet.com/xw_702/yw_705/',
@@ -70,10 +70,11 @@ class XZZSSpider(CrawlSpider):
         并使用replace、join函数
         对获得的数据进行了简单的清洗
         """
-        item = XZZSSpiderItem()
+        item = CrawlItem()
         item["title"] = response.selector.xpath('//div[@class="ne_cont_l"]/h1/text()').extract_first(default="")
-        item["type"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[1]/a[3]/text()'
+        item["raw_type"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[1]/a[3]/text()'
                                                ).extract_first(default="None")
+        item["type"] = item["raw_type"]
         item["publish_time"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[2]/div[1]/text()')\
             .extract_first(default="None")
         item["source"] = response.selector.xpath('//div[@class="ne_cont_l"]/div[2]/div[1]/em/text()').extract_first(

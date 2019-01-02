@@ -18,61 +18,12 @@ class TestSpiderItem(scrapy.Item):
     pass
 
 
-class XZXWSpiderItem(scrapy.Item):
-    # 中国西藏新闻网
+class CrawlItem(scrapy.Item):
     title = scrapy.Field()
+    raw_type = scrapy.Field()
     type = scrapy.Field()
     publish_time = scrapy.Field()
     source = scrapy.Field()
-    content = scrapy.Field()
-    pass
-
-
-class XZWSpiderItem(scrapy.Item):
-    # 中国西藏网
-    title = scrapy.Field()
-    type = scrapy.Field()
-    publish_time = scrapy.Field()
-    source = scrapy.Field()
-    content = scrapy.Field()
-    pass
-
-
-class XZZXSpiderItem(scrapy.Item):
-    # 西藏在线
-    title = scrapy.Field()
-    type = scrapy.Field()
-    publish_time = scrapy.Field()
-    source = scrapy.Field()
-    content = scrapy.Field()
-    pass
-
-
-class XZGHSpiderItem(scrapy.Item):
-    # 西藏工会新闻网
-    title = scrapy.Field()
-    type = scrapy.Field()
-    publish_time = scrapy.Field()
-    source = scrapy.Field()
-    content = scrapy.Field()
-    pass
-
-
-class XZZSSpiderItem(scrapy.Item):
-    # 西藏之声
-    title = scrapy.Field()
-    type = scrapy.Field()
-    publish_time = scrapy.Field()
-    source = scrapy.Field()
-    content = scrapy.Field()
-    pass
-
-
-class SNWSpiderItem(scrapy.Item):
-    # 山南网
-    title = scrapy.Field()
-    type = scrapy.Field()
-    publish_time = scrapy.Field()
-    source = scrapy.Field()
+    url = scrapy.Field()
     content = scrapy.Field()
     pass
