@@ -118,7 +118,7 @@
 | 西藏要闻 | [链接](http://www.lasa.gov.cn/lasa/xwzx/xzyw.shtml) | 保留 |
 
 ### [人民网西藏专栏](http://xz.people.com.cn/)(people)
-|分类|链接|标签|  
+|分类|链接|标签|
 | :--: | :--: | :--: |
 |生态|[链接](http://xz.people.com.cn/GB/139194/index.html)|保留|
 |教育|[链接](http://xz.people.com.cn/GB/139190/index.html)|保留|
@@ -152,7 +152,7 @@
 |环保|[网页链接](http://tibet.news.cn/hjbh.htm)|811|保留|
 
 ### [西藏自治区公安厅](http://www.xzgat.gov.cn)(xzgat)
-|分类|链接|标签|  
+|分类|链接|标签|
 | :--: | :--: | :--: |
 |警务要闻|[链接](http://www.xzgat.gov.cn/jwyw/index.jhtml)|保留|
 |地市(部门)动态 |[链接](http://www.xzgat.gov.cn/dsdt/index.jhtml)|保留|
@@ -163,7 +163,7 @@
 |政策法规|[链接](http://www.xzgat.gov.cn/zcfg/index.jhtml)|保留|
 
 ### [西藏自治区人民政府](http://www.xizang.gov.cn)(xzgov)
-|分类|链接|标签|  
+|分类|链接|标签|
 | :--: | :--: | :--: |
 |政务要闻|[链接](http://www.xizang.gov.cn/xwzx/zwyw/)|保留|
 |经济建设|[链接](http://www.xizang.gov.cn/xwzx/jjjs/)|保留|
@@ -181,7 +181,7 @@
 |廉政要闻|[链接](http://www.xzjjw.gov.cn/yw.php?type=17)|保留|
 
 ### [中国共产党西藏自治区委员会](http://www.zgxzqw.gov.cn/xwzx/)(zgxzqw)
-|分类|链接|标签|  
+|分类|链接|标签|
 | :--: | :--: | :--: |
 |新闻中心|[链接](http://www.zgxzqw.gov.cn/xwzx/)|保留|
 
