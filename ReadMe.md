@@ -110,7 +110,7 @@
 |     | 书评 | [链接](http://www.tibetol.cn/html/dushu/sp/) | 文化 |
 
 ### [拉萨市人民政府](http://www.lasa.gov.cn/)(lasagov)
-| 分类 | 链接 | 标签 |  
+| 分类 | 链接 | 标签 |
 | :--: | :--: | :--: |
 | 拉萨要闻 | [链接](http://www.lasa.gov.cn/lasa/xwzx/lsyw/index.shtml) | 保留 |
 | 部门新闻 | [链接](http://www.lasa.gov.cn/lasa/xwzx/bmxw.shtml) | 保留 |
