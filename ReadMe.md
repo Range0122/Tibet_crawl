@@ -11,7 +11,7 @@
 ## 进度
 
 | 网站名 | 当前状态 | 抓取时间 | 数据量 |
-| :—: | :—: | :—: | :—: |
+| :--: | :--: | :--: | :--: |
 | 西藏工会新闻网(xzgh_spider) | 完成 | 2018-10-26 | 15MB |
 | 中国西藏网(xzw_spider) | 完成 | 2018-10-26 | 20MB |
 | 中国西藏新闻网(xzxw_spider) | 完成 | 2018-10-13 | 436MB |
@@ -52,7 +52,7 @@
 
 ### [中国西藏新闻网](http://www.xzxw.com/)(xzxw_spider)
 | 分类 | 目录名 | 链接 | 标签 |
-| :—: | :—: | :—: | :—: |
+| :--: | :--: | :--: | :--: |
 | 西藏新闻 | 西藏要闻 | [链接](http://www.xzxw.com/xw/xzyw/) |	保留 |
 |     | 民生新闻 | [链接](http://www.xzxw.com/xw/msxw/) |	社会 |
 |     | 财经新闻 | [链接](http://www.xzxw.com/xw/cjxw/) |	保留 |
@@ -85,7 +85,7 @@
 
 ### [西藏之声](http://www.vtibet.com/)(xzzs_spider)
 | 分类 | 链接 | 标签 |
-| :—: | :—: | :—: |
+| :--: | :--: | :--: |
 | 要闻 | [链接](http://www.vtibet.com/xw_702/yw_705/) | 保留 |
 | 时政 | [链接](http://www.vtibet.com/xw_702/sz_704/) | 政治 |
 | 社会 | [链接](http://www.vtibet.com/xw_702/sh_709/) | 社会 |
@@ -93,7 +93,7 @@
 
 ### [西藏在线](http://www.tibetol.cn/)(xzzx_spider)
 | 分类 | 目录名 | 链接 | 标签 |
-| :—: | :—: | :—: | :—: |
+| :--: | :--: | :--: | :--: |
 | 资讯 | 本网原创 | [链接](http://www.tibetol.cn/html/zixun/bwyc/) | 保留 |
 |     | 其他藏区 | [链接](http://www.tibetol.cn/html/zixun/qitazangqu/) | 保留 |
 |     | 西藏要闻 | [链接](http://www.tibetol.cn/html/zixun/xizangyaowen/) | 保留 |
@@ -111,7 +111,7 @@
 
 ### [拉萨市人民政府](http://www.lasa.gov.cn/)(lasagov)
 |分类|链接|标签|  
-|—|—|—|
+|--|--|--|
 |拉萨要闻|[链接](http://www.lasa.gov.cn/lasa/xwzx/lsyw/index.shtml)|保留|
 |部门新闻|[链接](http://www.lasa.gov.cn/lasa/xwzx/bmxw.shtml)|保留|
 |区县新闻|[链接](http://www.lasa.gov.cn/lasa/xwzx/qxxw.shtml)|保留|
@@ -119,7 +119,7 @@
 
 ### [人民网西藏专栏](http://xz.people.com.cn/)(people)
 |分类|链接|标签|  
-|—|—|—|
+|--|--|--|
 |生态|[链接](http://xz.people.com.cn/GB/139194/index.html)|保留|
 |教育|[链接](http://xz.people.com.cn/GB/139190/index.html)|保留|
 |医疗|[链接](http://xz.people.com.cn/GB/378471/index.html)|保留|
@@ -138,7 +138,7 @@
 > 本网站由AJAX请求获取，只给出**网页链接**与代码中对应的**typeId**
 
 |分类|网页链接|typeId|标签|
-|—|—|—|—|
+|--|--|--|--|
 |要闻|[网页链接](http://tibet.news.cn/xhjj.htm)|837|保留|
 |政情|[网页链接](http://tibet.news.cn/zqrs.htm)|801|保留|
 |时评|[网页链接](http://tibet.news.cn/sspl.htm)|802|保留|
@@ -153,7 +153,7 @@
 
 ### [西藏自治区公安厅](http://www.xzgat.gov.cn)(xzgat)
 |分类|链接|标签|  
-|—|—|—|
+|--|--|--|
 |警务要闻|[链接](http://www.xzgat.gov.cn/jwyw/index.jhtml)|保留|
 |地市(部门)动态 |[链接](http://www.xzgat.gov.cn/dsdt/index.jhtml)|保留|
 |公安改革专栏|[链接](http://www.xzgat.gov.cn/gsggzl/index.jhtml)|保留|
@@ -164,7 +164,7 @@
 
 ### [西藏自治区人民政府](http://www.xizang.gov.cn)(xzgov)
 |分类|链接|标签|  
-|—|—|—|
+|--|--|--|
 |政务要闻|[链接](http://www.xizang.gov.cn/xwzx/zwyw/)|保留|
 |经济建设|[链接](http://www.xizang.gov.cn/xwzx/jjjs/)|保留|
 |国务院新闻|[链接](http://www.xizang.gov.cn/xwzx/gwyxw/)|保留|
@@ -177,10 +177,10 @@
 
 ### [西藏纪检](http://www.xzjjw.gov.cn/yw.php?type=17)(xzjjw)
 |分类|链接|标签|
-|—|—|—|
+|--|--|--|
 |廉政要闻|[链接](http://www.xzjjw.gov.cn/yw.php?type=17)|保留|
 
 ### [中国共产党西藏自治区委员会](http://www.zgxzqw.gov.cn/xwzx/)(zgxzqw)
 |分类|链接|标签|  
-|—|—|—|
+|--|--|--|
 |新闻中心|[链接](http://www.zgxzqw.gov.cn/xwzx/)|保留|
