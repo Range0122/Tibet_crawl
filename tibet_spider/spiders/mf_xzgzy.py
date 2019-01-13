@@ -3,7 +3,6 @@ import scrapy
 from scrapy import Request
 from tibet_spider.items import CrawlItem
 
-import re
 
 class XzgzySpider(scrapy.Spider):
     name = 'xzgzy'
@@ -13,7 +12,8 @@ class XzgzySpider(scrapy.Spider):
     def parse(self, response):
         urls = response.xpath('//ul[@class="e2"]/li/a/@href').extract()
         for url in urls:
-            yield Request(url=response.urljoin(url), callback=self.parse_news, dont_filter=True, meta={'url':response.urljoin(url)})
+            yield Request(url=response.urljoin(url), callback=self.parse_news,
+                          dont_filter=True, meta={'url': response.urljoin(url)})
         number = response.xpath('//div[@class="pagination"]/ul/li[1]/span/text()').extract_first().split('/')
         this_page = int(number[0].split(' ')[3])
         total_page = int(number[1].split(' ')[0])

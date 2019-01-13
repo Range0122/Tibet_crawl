@@ -72,6 +72,7 @@ class XZZXSpider(CrawlSpider):
         包括标题、文章类型、发表时间、来源、正文内容，
         """
         item = CrawlItem()
+
         item["title"] = response.selector.xpath('//div[@class="col-left"]/div[2]/h1/text()').extract_first(default="")
         item["raw_type"] = response.selector.xpath('//div[@class="col-left"]/div[1]/a[3]/text()').extract_first(
             default="None")
@@ -80,4 +81,5 @@ class XZZXSpider(CrawlSpider):
         item["publish_time"] = temp[:19]
         item["source"] = temp[19:] or "None"
         item["content"] = ''.join(response.selector.xpath('//div[@class="content"]').xpath('string(.)').extract())
+
         return item

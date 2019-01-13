@@ -35,6 +35,7 @@ class TtmcSpider(scrapy.Spider):
         
     def parse_news(self, response):
         item = CrawlItem()
+
         item['url'] = response.meta['url']
         item['title'] = response.xpath('//*[@class="titlestyle42165"]/text()').extract_first().strip()
         item['publish_time'] = response.xpath('//*[@class="timestyle42165"]/text()').extract_first().strip()

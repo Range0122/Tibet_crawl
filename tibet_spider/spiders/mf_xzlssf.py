@@ -23,7 +23,7 @@ class XzlssfSpider(scrapy.Spider):
     def parse_news(self, response):
         item = CrawlItem()
 
-        item['url'] = response.meta['url']
+        item['url'] = response.url
         item['title'] = response.xpath('//div[@class="wtitle"]/text()').extract_first()
         item['content'] = response.xpath('//div[@class="contt"]/div[2]').extract_first()
         item['raw_type'] = '校园新闻'

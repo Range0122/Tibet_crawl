@@ -103,9 +103,17 @@ def select_json(path):
 if __name__ == '__main__':
 
     url = 'http://www.xzlssf.org/ziyuan/news/2018/0317/2523.html'
+
     result = re.findall(r'\d+', url)
-    publish_time = result[0] + '-' + result[1][0:2] + '-' + result[1][2:]
+
+    publish_time = '  ' + result[0] + '-' + result[1][0:2] + '-' + result[1][2:] + ' 12:12:46'
+
     print(publish_time)
+
+    publish = re.search(r'[\d]{4}-[\d]{2}-[\d]{2}', publish_time)[0]
+
+    print(publish)
+
     # path = 'society.json'
     # with open(path, 'r', encoding='utf-8') as f:
     #     # data = json.load(f)

@@ -13,20 +13,20 @@ class UtibetSpider(Spider):
     def parse(self, response):
         url_lists = response.xpath('//div[@class="new_title_list"]/a/@href').extract()
 
-        for url in url_lists:
-            res_url = TibetItem('utibet').get_url_search(response.urljoin(url))
-            if res_url:
-                print('更新结束')
-                self.stop_next = True
-                break
-            else:   
-                res_url = TibetItem('spider').get_url_search(response.urljoin(url))
-                if res_url:
-                    print('更新结束')
-                    self.stop_next = True
-                    break 
-                else:
-                    yield Request(url=response.urljoin(url), callback=self.parse_pages, dont_filter=True, meta={'url':response.urljoin(url)})
+        # for url in url_lists:
+        #     res_url = TibetItem('utibet').get_url_search(response.urljoin(url))
+        #     if res_url:
+        #         print('更新结束')
+        #         self.stop_next = True
+        #         break
+        #     else:
+        #         res_url = TibetItem('spider').get_url_search(response.urljoin(url))
+        #         if res_url:
+        #             print('更新结束')
+        #             self.stop_next = True
+        #             break
+        #         else:
+        #             yield Request(url=response.urljoin(url), callback=self.parse_pages, dont_filter=True, meta={'url':response.urljoin(url)})
 
         number = response.xpath('//div[@id="page"]/text()').extract_first().strip().split(' ')[0].split('：')[1].split('\r')[0]
         this_num = int(number.split('/')[0])
@@ -42,6 +42,7 @@ class UtibetSpider(Spider):
 
     def parse_pages(self, response):
         item = CrawlItem()
+
         item['url'] = response.meta['url']
         item['title'] = response.xpath('//*[@class="text"]/table/tr[1]/td/div[2]/text()').extract_first()
         item["raw_type"] = '校园新闻'

@@ -108,10 +108,17 @@ class TibetSpiderPipeline(object):
         r'(上午)?\d+[时点](\d+分)?',
         r'([上下]午)?\d+:\d+',
         '[A-Za-z][0-9]+',
-        '[A-Za-z_&#*()+=.:：【】"“”]'
+        '[A-Za-z_&#*()+=.:：【】"“”]',
+        '(<.*?>)',
+        '(（.*?）)',
+        '(\(.*?\）)',
+        '(\(.*?\))',
+        '(http.*?\.com)',
+        '(http.*?\.cn)',
+        '(http.*?\.html)'
     ]
 
-    clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;']
+    clean_list = [' ', '\r', '\n', '\\"', '\t', '\u3000', '\xa0', '&nbsp;', '&lt', '&gt']
 
     def clean_item(self, content):
         # 循环匹配去除
@@ -133,6 +140,11 @@ class TibetSpiderPipeline(object):
         if item["title"] and item["content"]:
             item["type"] = self.mapping_table.get(item["raw_type"], item["type"])
             # item["type"] = self.mapping_table.get(item["raw_type"], "未分类")
+
+            try:
+                item["publish_time"] = re.search(r'[\d]{4}-[\d]{2}-[\d]{2}', item["publish_time"])[0]
+            except Exception as e:
+                print(e)
 
             with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
                                     + '.json', 'a', encoding="utf-8") as f:
