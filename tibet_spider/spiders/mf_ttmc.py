@@ -16,7 +16,9 @@ class TtmcSpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield Request(url=url, callback=self.get_news_list, dont_filter=True)
+            yield Request(url=url, 
+            callback=self.get_news_list, 
+            dont_filter=True)
 
     def get_news_list(self, response):
         num = 20
@@ -26,22 +28,24 @@ class TtmcSpider(scrapy.Spider):
             for i in range(20 * (this_num - 1 ), num * this_num):
                 news_id = 'line42162_{id}'.format(id=i)
                 url = response.xpath('//tr[@id="{id}"]/td[1]/a/@href'.format(id=news_id)).extract_first()
-                yield Request(url=response.urljoin(url), callback=self.parse_news, dont_filter=True, meta={'url':response.urljoin(url)})
+                yield Request(url=response.urljoin(url), 
+                callback=self.parse_news, 
+                dont_filter=True)
             next_url = response.xpath('//a[@class="Next"]/@href').extract_first()            
-            yield Request(url=response.urljoin(next_url), callback=self.get_news_list, dont_filter=True)
+            yield Request(url=response.urljoin(next_url), 
+            callback=self.get_news_list, 
+            dont_filter=True)
             print(response.urljoin(next_url))
         except Exception as e:
             print('get_news_list', e)
         
     def parse_news(self, response):
         item = CrawlItem()
-
-        item['url'] = response.meta['url']
+        item['url'] = response.url
         item['title'] = response.xpath('//*[@class="titlestyle42165"]/text()').extract_first().strip()
         item['publish_time'] = response.xpath('//*[@class="timestyle42165"]/text()').extract_first().strip()
         item['content'] = response.xpath('//*[@id="vsb_content"]').extract_first()
         item['raw_type'] = '校园新闻'
         item["type"] = item["raw_type"]
         item["source"] = '西藏藏医药大学'
-
         return item
