@@ -19,8 +19,9 @@ class XzlssfSpider(scrapy.Spider):
         total_page = int(response.xpath('//span[@class="pageinfo"]/strong[1]/text()').extract_first())
         this_page = int(response.xpath('//li[@class="thisclass"]/text()').extract_first())
         if this_page < total_page:
-            next_url = response.xpath('//ul[@class="pagelist"]/li[13]/a/@href').extract_first()
-            yield Request(url=response.urljoin(next_url), 
+            next_url = 'http://www.xzlssf.org/ziyuan/news/list_24_{page}.html'.format(page=str(this_page + 1))
+            print(next_url)
+            yield Request(url=next_url, 
             callback=self.parse, 
             dont_filter=True)
 

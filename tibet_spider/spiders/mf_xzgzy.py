@@ -19,17 +19,11 @@ class XzgzySpider(scrapy.Spider):
         this_page = int(number[0].split(' ')[3])
         total_page = int(number[1].split(' ')[0])
         if this_page < total_page:
-            if this_page > 1:
-                next_url = response.xpath('//div[@class="pagination"]/ul/li[3]/a/@href').extract_first()
-                yield Request(url=response.urljoin(next_url), 
-                callback=self.parse, 
-                dont_filter=True)
-            else:
-                next_url = response.xpath('//div[@class="pagination"]/ul/li[2]/a/@href').extract_first()
-                yield Request(url=response.urljoin(next_url), 
-                callback=self.parse, 
-                dont_filter=True)
-            print(response.urljoin(next_url))
+            next_url = 'http://www.xzgzy.cn/home/list/index/id/58/p/{page}.html'.format(page=str(this_page + 1))
+            print(next_url)
+            yield Request(url=next_url, 
+            callback=self.parse, 
+            dont_filter=True)
         else:
             return None
         
