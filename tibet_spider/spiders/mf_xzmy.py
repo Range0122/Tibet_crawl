@@ -14,14 +14,14 @@ class XzmySpider(scrapy.Spider):
     def start_requests(self):
         for _column_id in self.column_ids:
             formdata = {
-                'dept_id':'1',
-                'column_id':_column_id,
-                'column_type':'1',
-                'per':'15',
-                'url':'list',
-                'page':'1'
+                'dept_id': '1',
+                'column_id': _column_id,
+                'column_type': '1',
+                'per': '15',
+                'url': 'list',
+                'page': '1'
             }
-            yield FormRequest(url=self.start_urls[0], formdata= formdata, callback=self.get_news_list, meta={'formdata':formdata})
+            yield FormRequest(url=self.start_urls[0], formdata=formdata, callback=self.get_news_list, meta={'formdata':formdata})
 
     def get_news_list(self, response):
         formdata = response.meta['formdata']
@@ -35,18 +35,13 @@ class XzmySpider(scrapy.Spider):
             
     def parse_news(self, response):
         item = CrawlItem()
-        title = response.xpath('//h2[@class="tith2"]/text()').extract_first()
-        release_time = response.xpath('//div[@class="time"]/span[2]/text()').extract_first().split('：')[1]
-        read_count = response.xpath('//div[@class="time"]/span[3]/text()').extract_first().split('\r\n')[1].split(' ')[0]
-        content = response.xpath('//div[@class="MainNewsContent"]').extract_first()
-        for pt in PATTEN:
-            content = re.sub(pt, '', content)
-        for word in SPLIT_WORDS:
-            content = ''.join(content.split(word))
+
         item['url'] = response.meta['url']
-        item['title'] = title
-        item['release_time'] = release_time
-        item['read_count'] = read_count
-        item['content'] = content
-        item['classify'] = '文化'
-        yield item
+        item['title'] = response.xpath('//h2[@class="tith2"]/text()').extract_first()
+        item['release_time'] = response.xpath('//div[@class="time"]/span[2]/text()').extract_first().split('：')[1]
+        item['content'] = response.xpath('//div[@class="MainNewsContent"]').extract_first()
+        item['raw_type'] = '校园新闻'
+        item["type"] = item["raw_type"]
+        item["source"] = '西藏民族大学'
+
+        return item

@@ -101,6 +101,11 @@ def select_json(path):
 
 
 if __name__ == '__main__':
+
+    url = 'http://www.xzlssf.org/ziyuan/news/2018/0317/2523.html'
+    result = re.findall(r'\d+', url)
+    publish_time = result[0] + '-' + result[1][0:2] + '-' + result[1][2:]
+    print(publish_time)
     # path = 'society.json'
     # with open(path, 'r', encoding='utf-8') as f:
     #     # data = json.load(f)
@@ -131,15 +136,15 @@ if __name__ == '__main__':
     #
     #     print(data_type, len(data_type))
 
-    sour_path = [
-        'tibet_spider/result/total/xzgh_spider-20181026.json',
-        'tibet_spider/result/total/xzw_spider-20181026.json',
-        'tibet_spider/result/total/xzxw_spider-20181027.json',
-        'tibet_spider/result/total/xzzs_spider-20181026.json',
-        'tibet_spider/result/total/xzzx_spider-20181026.json',
-    ]
-
-    test_json('economic.json')
+    # sour_path = [
+    #     'tibet_spider/result/total/xzgh_spider-20181026.json',
+    #     'tibet_spider/result/total/xzw_spider-20181026.json',
+    #     'tibet_spider/result/total/xzxw_spider-20181027.json',
+    #     'tibet_spider/result/total/xzzs_spider-20181026.json',
+    #     'tibet_spider/result/total/xzzx_spider-20181026.json',
+    # ]
+    #
+    # test_json('economic.json')
 
     # for path in sour_path:
     #     select_json(path)

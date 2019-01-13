@@ -34,18 +34,13 @@ class TtmcSpider(scrapy.Spider):
             print('get_news_list', e)
         
     def parse_news(self, response):
-        title = response.xpath('//*[@class="titlestyle42165"]/text()').extract_first().strip()
-        release_time = response.xpath('//*[@class="timestyle42165"]/text()').extract_first().strip()
-        content = response.xpath('//*[@id="vsb_content"]').extract_first()
-        for pt in PATTEN:
-            content = re.sub(pt, '', content)
-        for word in SPLIT_WORDS:
-            content = ''.join(content.split(word))
         item = CrawlItem()
         item['url'] = response.meta['url']
-        item['title'] = title
-        item['release_time'] = release_time
-        item['content'] = content
-        item['classify'] = '文化'
-        item['read_count'] = self._rand.r_number()
-        yield item
+        item['title'] = response.xpath('//*[@class="titlestyle42165"]/text()').extract_first().strip()
+        item['publish_time'] = response.xpath('//*[@class="timestyle42165"]/text()').extract_first().strip()
+        item['content'] = response.xpath('//*[@id="vsb_content"]').extract_first()
+        item['raw_type'] = '校园新闻'
+        item["type"] = item["raw_type"]
+        item["source"] = '西藏藏医药大学'
+
+        return item

@@ -30,20 +30,14 @@ class XzgzySpider(scrapy.Spider):
         
     def parse_news(self, response):
         item = CrawlItem()
-        title = response.xpath('//div[@class="title"]/h2/text()').extract_first()
-        release_time = response.xpath('//div[@class="info"]/text()').extract()[1]
-        read_count = response.xpath('//span[@id="hits"]/text()').extract_first()
-        content = response.xpath('//div[@class="content"]/table').extract_first()
-        for pt in PATTEN:
-            content = re.sub(pt, '', content)
-        for word in SPLIT_WORDS:
-            content = ''.join(content.split(word))
-        item['url'] = response.meta['url']
-        item['title'] = title
-        item['release_time'] = release_time
-        item['read_count'] = read_count
-        item['content'] = content
-        item['classify'] = '文化'
-        yield item
 
-        
+        item['url'] = response.meta['url']
+        item['title'] = response.xpath('//div[@class="title"]/h2/text()').extract_first()
+        item['publish_time'] = response.xpath('//div[@class="info"]/text()').extract()[1]
+        item['content'] = response.xpath('//div[@class="content"]/table').extract_first()
+        item['raw_type'] = '校园新闻'
+        item["type"] = item["raw_type"]
+        item["source"] = '西藏职业技术学院'
+
+        return item
+

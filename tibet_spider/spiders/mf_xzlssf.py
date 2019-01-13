@@ -22,16 +22,14 @@ class XzlssfSpider(scrapy.Spider):
 
     def parse_news(self, response):
         item = CrawlItem()
-        title = response.xpath('//div[@class="wtitle"]/text()').extract_first()
-        content = response.xpath('//div[@class="contt"]/div[2]').extract_first()
-        for pt in PATTEN:
-            content = re.sub(pt, '', content)
-        for word in SPLIT_WORDS:
-            content = ''.join(content.split(word))
+
         item['url'] = response.meta['url']
-        item['title'] = title
-        item['content'] = content
-        item['classify'] = '文化'
-        item['read_count'] = self._rand.r_number()
-        item['release_time'] = time.strftime('%Y-%m-%d %H:%M',time.localtime())
-        yield item
+        item['title'] = response.xpath('//div[@class="wtitle"]/text()').extract_first()
+        item['content'] = response.xpath('//div[@class="contt"]/div[2]').extract_first()
+        item['raw_type'] = '校园新闻'
+        item["type"] = item["raw_type"]
+        item["source"] = '拉萨师范高等专科学校'
+        temp = re.findall(r'\d+', item['url'])
+        item['publish_time'] = temp[0] + '-' + temp[1][0:2] + '-' + temp[1][2:]
+
+        return item
