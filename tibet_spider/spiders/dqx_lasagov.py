@@ -4,6 +4,7 @@ import re
 import scrapy
 from tibet_spider.items import CrawlItem
 
+
 class LasagovSpider(scrapy.Spider):
     """Crawling news on Lhasa government website.
 

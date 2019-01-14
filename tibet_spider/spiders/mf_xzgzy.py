@@ -12,29 +12,24 @@ class XzgzySpider(scrapy.Spider):
     def parse(self, response):
         urls = response.xpath('//ul[@class="e2"]/li/a/@href').extract()
         for url in urls:
-            yield Request(url=response.urljoin(url), 
-            callback=self.parse_news,
-            dont_filter=True,)
+            yield Request(url=response.urljoin(url),
+                          callback=self.parse_news,
+                          dont_filter=True, )
         number = response.xpath('//div[@class="pagination"]/ul/li[1]/span/text()').extract_first().split('/')
         this_page = int(number[0].split(' ')[3])
         total_page = int(number[1].split(' ')[0])
         if this_page < total_page:
-            if this_page > 1:
-                next_url = response.xpath('//div[@class="pagination"]/ul/li[3]/a/@href').extract_first()
-                yield Request(url=response.urljoin(next_url), 
-                callback=self.parse, 
-                dont_filter=True)
-            else:
-                next_url = response.xpath('//div[@class="pagination"]/ul/li[2]/a/@href').extract_first()
-                yield Request(url=response.urljoin(next_url), 
-                callback=self.parse, 
-                dont_filter=True)
-            print(response.urljoin(next_url))
+            next_url = 'http://www.xzgzy.cn/home/list/index/id/58/p/{page}.html'.format(page=str(this_page + 1))
+            print(next_url)
+            yield Request(url=next_url,
+                          callback=self.parse,
+                          dont_filter=True)
         else:
             return None
-        
+
     def parse_news(self, response):
         item = CrawlItem()
+
         item['url'] = response.url
         item['title'] = response.xpath('//div[@class="title"]/h2/text()').extract_first()
         item['publish_time'] = response.xpath('//div[@class="info"]/text()').extract()[1]
@@ -44,4 +39,3 @@ class XzgzySpider(scrapy.Spider):
         item["source"] = '西藏职业技术学院'
 
         return item
-

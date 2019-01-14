@@ -5,9 +5,10 @@ import re
 import scrapy
 from tibet_spider.items import CrawlItem
 
-class XinhuaSpider(scrapy.Spider):
-    """Crawling news from xinhua website.
 
+class XinhuaSpider(scrapy.Spider):
+    """
+    Crawling news from xinhua website.
     Result include:
     title -- title of the news(default '')
     author -- who write the news(default '')
@@ -55,6 +56,7 @@ class XinhuaSpider(scrapy.Spider):
         type_id = response.meta["type_id"]
 
         item = CrawlItem()
+
         item["title"] = deal_para(response.css('#ArticleTit::text').extract())
         item["raw_type"] = type_mapping[type_id]
         item["type"] = item["raw_type"]

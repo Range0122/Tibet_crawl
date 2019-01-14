@@ -14,8 +14,6 @@ class UtibetSpider(Spider):
         url_lists = response.xpath('//div[@class="new_title_list"]/a/@href').extract()
         # 暂时先不用管
 
-
-
         for url in url_lists:
             yield Request(url=response.urljoin(url), 
             callback=self.parse_pages, 

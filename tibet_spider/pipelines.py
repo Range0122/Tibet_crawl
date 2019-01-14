@@ -9,10 +9,12 @@ import codecs
 import json
 import re
 import time
+from pymongo import MongoClient
 
 
 class TibetSpiderPipeline(object):
 
+    # 类别名映射表
     mapping_table = {
         # 西藏工会新闻网
         "时政要闻": "政治",
@@ -129,6 +131,7 @@ class TibetSpiderPipeline(object):
         for item in self.clean_list:
             content = content.replace(item, '')
 
+        # 去除正文字数太少的数据
         if len(content) < 66:
             content = ''
 
@@ -137,29 +140,40 @@ class TibetSpiderPipeline(object):
     def process_item(self, item, spider):
         item["content"] = self.clean_item(item["content"])
 
+        # 判断抓取的数据是否有效（是否包含标题和正文）
         if item["title"] and item["content"]:
             item["type"] = self.mapping_table.get(item["raw_type"], item["type"])
             # item["type"] = self.mapping_table.get(item["raw_type"], "未分类")
 
+            # 调整publish_time的格式为"yyyy-mm-dd"
             try:
-                item["publish_time"] = re.search(r'[\d]{4}-[\d]{2}-[\d]{2}', item["publish_time"])[0]
+                temp = re.findall(r'([\d]{4}).*?([\d]{2}).*?([\d]{2})', item["publish_time"])[0]
+                item["publish_time"] = temp[0] + '-' + temp[1] + '-' + temp[2]
             except Exception as e:
                 print(e)
 
-            with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
-                                    + '.json', 'a', encoding="utf-8") as f:
-                lines = json.dumps(dict(item), ensure_ascii=False) + ",\n"
-                f.write(lines)
+            # 保存数据到mongodb数据库
+            client = MongoClient('mongodb://localhost:27017/')
+            db = client['test_db']
+            collection = db['test_collection']
+            collection.insert_one(dict(item))
 
+    #         # 保存数据到json文件中
+    #         with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+    #                                 + '.json', 'a', encoding="utf-8") as f:
+    #             lines = json.dumps(dict(item), ensure_ascii=False) + ",\n"
+    #             f.write(lines)
+    #
         return item
 
-    def close_spider(self, spider):
-        try:
-            with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
-                                        + '.json', 'r', encoding="utf-8") as f1:
-                content = '[' + f1.read()[:-2] + ']'
-                with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
-                                        + '.json', 'w', encoding="utf-8") as f2:
-                    f2.write(content)
-        except Exception as e:
-            print(e)
+    # def close_spider(self, spider):
+    #     # 对已经添加完数据的json文件的首尾添加中括号，使形成完整可用的json文件
+    #     try:
+    #         with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+    #                                     + '.json', 'r', encoding="utf-8") as f1:
+    #             content = '[' + f1.read()[:-2] + ']'
+    #             with codecs.open(str(spider.name) + '_' + str(time.strftime('%Y%m%d', time.localtime(time.time())))
+    #                                     + '.json', 'w', encoding="utf-8") as f2:
+    #                 f2.write(content)
+    #     except Exception as e:
+    #         print(e)

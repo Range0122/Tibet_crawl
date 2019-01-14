@@ -19,13 +19,15 @@ class XzlssfSpider(scrapy.Spider):
         total_page = int(response.xpath('//span[@class="pageinfo"]/strong[1]/text()').extract_first())
         this_page = int(response.xpath('//li[@class="thisclass"]/text()').extract_first())
         if this_page < total_page:
-            next_url = response.xpath('//ul[@class="pagelist"]/li[13]/a/@href').extract_first()
-            yield Request(url=response.urljoin(next_url), 
-            callback=self.parse, 
+            next_url = 'http://www.xzlssf.org/ziyuan/news/list_24_{page}.html'.format(page=str(this_page + 1))
+            # print(next_url)
+            yield Request(url=next_url,
+            callback=self.parse,
             dont_filter=True)
 
     def parse_news(self, response):
         item = CrawlItem()
+
         item['url'] = response.url
         item['title'] = response.xpath('//div[@class="wtitle"]/text()').extract_first()
         item['content'] = response.xpath('//div[@class="contt"]/div[2]').extract_first()
@@ -34,4 +36,5 @@ class XzlssfSpider(scrapy.Spider):
         item["source"] = '拉萨师范高等专科学校'
         temp = re.findall(r'\d+', item['url'])
         item['publish_time'] = temp[0] + '-' + temp[1][0:2] + '-' + temp[1][2:]
+
         return item

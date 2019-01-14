@@ -4,6 +4,7 @@ import scrapy
 import re
 from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
+from tibet_spider.middlewares import url_test
 
 
 class XZGHSpider(CrawlSpider):
@@ -12,11 +13,11 @@ class XZGHSpider(CrawlSpider):
     # 时政要闻，工会动态，基层工会，西藏风情，社会民生，职工文化
     start_urls = [
         'http://xz.workercn.cn/10930/10930.shtml',
-        'http://xz.workercn.cn/10850/10850.shtml',
-        'http://xz.workercn.cn/10858/10858.shtml',
-        'http://xz.workercn.cn/29369/29369.shtml',
-        'http://xz.workercn.cn/10864/10864.shtml',
-        'http://xz.workercn.cn/29556/29556.shtml'
+        # 'http://xz.workercn.cn/10850/10850.shtml',
+        # 'http://xz.workercn.cn/10858/10858.shtml',
+        # 'http://xz.workercn.cn/29369/29369.shtml',
+        # 'http://xz.workercn.cn/10864/10864.shtml',
+        # 'http://xz.workercn.cn/29556/29556.shtml'
     ]
     basic_url = 'http://xz.workercn.cn'
 
@@ -29,7 +30,13 @@ class XZGHSpider(CrawlSpider):
         url_list = response.selector.xpath('//div[@class="list_left"]/div[2]/div/ul/li/a/@href').extract()
 
         for i in range(0, len(url_list)):
-            request = scrapy.Request(url=self.basic_url + url_list[i], callback=self.parse_pages)
+            url = self.basic_url + url_list[i]
+
+            if url_test(url) == 1:
+                print("Data is exist!")
+                return None
+
+            request = scrapy.Request(url=url, callback=self.parse_pages)
             yield request
 
         next_url = response.url[:-6] + '_2.shtml'
@@ -49,7 +56,13 @@ class XZGHSpider(CrawlSpider):
         url_list = response.selector.xpath('//div[@class="list_left"]/div[2]/div/ul/li/a/@href').extract()
 
         for i in range(0, len(url_list)):
-            request = scrapy.Request(url=self.basic_url + url_list[i], callback=self.parse_pages)
+            url = self.basic_url + url_list[i]
+
+            if url_test(url) == 1:
+                print("Data is exist!")
+                return None
+
+            request = scrapy.Request(url=url, callback=self.parse_pages)
             yield request
 
         if url_list:
@@ -64,6 +77,7 @@ class XZGHSpider(CrawlSpider):
         例如：http://xz.workercn.cn/10930/201804/26/180426092830870.shtml
         包括标题、文章类型、发表时间、来源、正文内容，
         """
+
         item = CrawlItem()
         item["title"] = response.selector.xpath('//div[@class="list_left"]/div[2]/div[1]/span/text()').extract_first(
             default="")
@@ -76,4 +90,5 @@ class XZGHSpider(CrawlSpider):
                                                  ).extract_first(default="None")
         item["url"] = response.url
         item["content"] = ''.join(response.selector.xpath('//div[@class="list_left"]/div[2]/div[3]/p/text()').extract())
+
         return item

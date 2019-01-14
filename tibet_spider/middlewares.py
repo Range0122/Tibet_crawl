@@ -7,6 +7,7 @@
 
 from scrapy import signals
 import random
+from pymongo import MongoClient
 
 
 class TibetSpiderSpiderMiddleware(object):
@@ -125,3 +126,19 @@ class TibetSpiderDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+def url_test(url):
+    """
+    通过url判断数据库中是否已经存在当前需要抓取的网页数据
+    返回值：1表示已经存在，否则返回0
+    """
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['test_db']
+    collection = db['test_collection']
+
+    result = collection.find_one({"url": url})
+    if result is None:
+        return 0
+    else:
+        return 1

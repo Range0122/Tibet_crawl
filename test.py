@@ -6,6 +6,7 @@ import random
 import time
 import codecs
 import operator
+from pymongo import MongoClient
 
 
 def clean_item(content):
@@ -101,18 +102,37 @@ def select_json(path):
 
 
 if __name__ == '__main__':
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['test_db']
+    collection = db['test_collection']
+    test_data = {
+        "name": 'Range',
+        "age": 22,
+        "job": 'student',
+        "hobby:": 'video game'
+    }
+    # collection.insert_one(test_data)
 
-    url = 'http://www.xzlssf.org/ziyuan/news/2018/0317/2523.html'
+    result = collection.find_one({"name": "sRange"})
+    if result is None:
+        print("NOthing")
+    else:
+        print(result)
 
-    result = re.findall(r'\d+', url)
-
-    publish_time = '  ' + result[0] + '-' + result[1][0:2] + '-' + result[1][2:] + ' 12:12:46'
-
-    print(publish_time)
-
-    publish = re.search(r'[\d]{4}-[\d]{2}-[\d]{2}', publish_time)[0]
-
-    print(publish)
+    # print(collection)
+    # url = 'http://www.xzlssf.org/ziyuan/news/2018/0317/2523.html'
+    #
+    # result = re.findall(r'\d+', url)
+    #
+    # publish_time = '  ' + result[0] + '-' + result[1][0:2] + '-' + result[1][2:] + ' 12:12:46'
+    #
+    # publish_time = '2018年12月22日 12点 唔溜十分'
+    #
+    # publish = re.findall(r'([\d]{4}).*?([\d]{2}).*?([\d]{2})', publish_time)[0]
+    #
+    # publish = publish[0] + '-' + publish[1] + '-' + publish[2]
+    #
+    # print(publish)
 
     # path = 'society.json'
     # with open(path, 'r', encoding='utf-8') as f:
