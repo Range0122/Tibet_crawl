@@ -66,5 +66,5 @@ class LasagovSpider(scrapy.Spider):
 
             if url_test(news_link) == 1:
                 return None
-            
+
             yield scrapy.Request(response.urljoin(news_link), meta={"type": data_type}, callback=self.parse_news)
