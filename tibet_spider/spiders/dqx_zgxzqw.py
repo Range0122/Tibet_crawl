@@ -37,6 +37,8 @@ class ZgxzqwSpider(scrapy.Spider):
         news_links = response.css('.mt10 a::attr(href)').extract()
         data_type = "新闻中心"
         for news_link in news_links:
+            if url_test(news_link) == 1:
+                return None
             yield scrapy.Request(response.urljoin(news_link), meta={"type": data_type}, callback=self.parse_news)
 
         temp = response.css('.page-box script').re('createPageHTML(.*)')

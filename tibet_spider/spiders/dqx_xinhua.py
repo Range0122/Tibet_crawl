@@ -76,4 +76,8 @@ class XinhuaSpider(scrapy.Spider):
         if datas['status'] == 0:
             for item in datas['data']['list']:
                 url = item['LinkUrl']
+
+                if url_test(url) == 1:
+                    return None
+
                 yield scrapy.Request(url, meta={"type_id": type_id}, callback=self.parse_news)

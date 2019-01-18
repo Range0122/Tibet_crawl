@@ -70,6 +70,10 @@ class XzgatSpider(CrawlSpider):
         news_links = response.css('.rlist a::attr(href)').extract()
         data_type = response.css('.location a::text').extract()[-1]
         for news_link in news_links:
+
+            if url_test(news_link) == 1:
+                return None
+
             yield scrapy.Request(response.urljoin(news_link), meta={"type": data_type}, callback=self.parse_news)
 
     def parse_classify(self, response):
@@ -77,6 +81,10 @@ class XzgatSpider(CrawlSpider):
         news_links = response.css('.rlist a::attr(href)').extract()
         data_type = response.css('.location a::text').extract()[-1]
         for news_link in news_links:
+
+            if url_test(news_link) == 1:
+                return None
+
             yield scrapy.Request(response.urljoin(news_link), meta={"type": data_type}, callback=self.parse_news)
         temp = response.css(".list_pagegrade").extract_first()
         total_page = int(temp.split(u'页')[0].split('/')[1])

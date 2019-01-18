@@ -58,6 +58,10 @@ class XzjjwSpider(scrapy.Spider):
         news_links = response.css('.new_title li a::attr(href)').extract()
         data_type = "廉政要闻"
         for news_link in news_links:
+
+            if url_test(news_link) == 1:
+                return None
+
             yield scrapy.Request(response.urljoin(news_link), meta={"type": data_type}, callback=self.parse_news)
 
         # 获取总页数

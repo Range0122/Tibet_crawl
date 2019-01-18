@@ -52,6 +52,10 @@ class XzgovSpider(CrawlSpider):
         news_links = response.css('.zx-wdsyw-con li a::attr(href)').extract()
         data_type = response.css('.xz-news-bumb a::text').extract()[-1]
         for news_link in news_links:
+
+            if url_test(news_link) == 1:
+                return None
+
             yield scrapy.Request(response.urljoin(news_link), meta={"type":data_type}, callback=self.parse_news)
         temp = response.css('.xz-page script').extract_first()
         temp = temp.split('createPageHTML')[-1].strip('(|);\n</script>')

@@ -53,6 +53,10 @@ class PeopleSpider(CrawlSpider):
         news_links = response.css('.ej_list_box a::attr(href)').re('.*/n2.*')
         item_type = response.css('.lujing a::text').extract()[-1]
         for news_link in news_links:
+
+            if url_test(news_link) == 1:
+                return None
+
             request = scrapy.Request(response.urljoin(news_link), meta={"item_type": item_type},
                                      callback=self.parse_news)
             yield request

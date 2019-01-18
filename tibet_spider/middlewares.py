@@ -143,3 +143,16 @@ def url_test(url):
         return 0
     else:
         return 1
+
+
+def zh_url_test(url):
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['spider_db']
+    collection = db['zh_spider']
+
+    result = collection.find_one({"url": url})
+
+    if result is None:
+        return 0
+    else:
+        return 1

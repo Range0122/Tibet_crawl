@@ -2,8 +2,7 @@
 import json
 import scrapy
 from tibet_spider.items import ZhihuItem
-from tibet_spider.middlewares import url_test
-
+from pymongo import MongoClient
 
 class ZhSpider(scrapy.Spider):
     name = 'zh'
@@ -117,7 +116,16 @@ class ZhSpider(scrapy.Spider):
         item["business"] = userInfo["business"] or ''
         item["locations"] = userInfo["locations"] or ''
 
-        return item
+        # 查询数据库中是否已经存在该条数据
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client['spider_db']
+        collection = db['zh_spider']
+
+        result = collection.find_one({"url_token": item["url_token"]})
+
+        if result is None:
+            return item
+
         # return {
         #     "info": info,
         #     "user_info": userInfo

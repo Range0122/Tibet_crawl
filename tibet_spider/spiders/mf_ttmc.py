@@ -16,8 +16,6 @@ class TtmcSpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            if url_test(url) == 1:
-                return None
             yield Request(url=url, callback=self.get_news_list, dont_filter=True)
 
     def get_news_list(self, response):

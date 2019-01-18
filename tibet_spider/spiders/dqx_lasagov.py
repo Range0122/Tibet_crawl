@@ -63,4 +63,8 @@ class LasagovSpider(scrapy.Spider):
         news_links = response.css('.list li a::attr(href)').extract()
         data_type = response.css('.breadcrumb span::text').extract()[-1]
         for news_link in news_links:
+
+            if url_test(news_link) == 1:
+                return None
+            
             yield scrapy.Request(response.urljoin(news_link), meta={"type": data_type}, callback=self.parse_news)
