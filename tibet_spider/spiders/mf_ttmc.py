@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
-import re
 from tibet_spider.items import CrawlItem
+from tibet_spider.middlewares import url_test
 
 
 class TtmcSpider(scrapy.Spider):
@@ -16,9 +16,9 @@ class TtmcSpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield Request(url=url, 
-            callback=self.get_news_list, 
-            dont_filter=True)
+            if url_test(url) == 1:
+                return None
+            yield Request(url=url, callback=self.get_news_list, dont_filter=True)
 
     def get_news_list(self, response):
         num = 20
@@ -28,12 +28,13 @@ class TtmcSpider(scrapy.Spider):
             for i in range(20 * (this_num - 1 ), num * this_num):
                 news_id = 'line42162_{id}'.format(id=i)
                 url = response.xpath('//tr[@id="{id}"]/td[1]/a/@href'.format(id=news_id)).extract_first()
-                yield Request(url=response.urljoin(url), 
-                callback=self.parse_news, 
-                dont_filter=True)
+
+                if url_test(url) == 1:
+                    return None
+
+                yield Request(url=response.urljoin(url), callback=self.parse_news, dont_filter=True)
             next_url = response.xpath('//a[@class="Next"]/@href').extract_first()            
-            yield Request(url=response.urljoin(next_url), 
-            callback=self.get_news_list, 
+            yield Request(url=response.urljoin(next_url), callback=self.get_news_list,
             dont_filter=True)
             print(response.urljoin(next_url))
         except Exception as e:

@@ -8,6 +8,7 @@ import traceback
 import json
 from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
+from tibet_spider.middlewares import url_test
 
 
 class XZXWSpider(CrawlSpider):
@@ -70,6 +71,9 @@ class XZXWSpider(CrawlSpider):
             else:
                 url_list[i] = basic_url2 + url_list[i][3:]
 
+            if url_test(url_list[i]) == 1:
+                return None
+
             request = scrapy.Request(url=url_list[i], meta={"data_type": data_type}, callback=self.parse_pages)
             yield request
 
@@ -97,6 +101,9 @@ class XZXWSpider(CrawlSpider):
                 url_list[i] = response.meta["basic_url1"] + url_list[i][2:]
             else:
                 url_list[i] = response.meta["basic_url2"] + url_list[i][3:]
+
+            if url_test(url_list[i]) == 1:
+                return None
 
             request = scrapy.Request(url=url_list[i], meta={"data_type": data_type}, callback=self.parse_pages)
             yield request

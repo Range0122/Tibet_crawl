@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
 from scrapy import Request, FormRequest
 from tibet_spider.items import CrawlItem
+from tibet_spider.middlewares import url_test
 
 
 class XzmySpider(scrapy.Spider):

@@ -134,10 +134,11 @@ def url_test(url):
     返回值：1表示已经存在，否则返回0
     """
     client = MongoClient('mongodb://localhost:27017/')
-    db = client['test_db']
-    collection = db['test_collection']
+    db = client['spider_db']
+    collection = db['items']
 
     result = collection.find_one({"url": url})
+
     if result is None:
         return 0
     else:

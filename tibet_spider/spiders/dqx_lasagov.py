@@ -3,6 +3,7 @@
 import re
 import scrapy
 from tibet_spider.items import CrawlItem
+from tibet_spider.middlewares import url_test
 
 
 class LasagovSpider(scrapy.Spider):

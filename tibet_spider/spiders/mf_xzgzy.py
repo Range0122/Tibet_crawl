@@ -2,6 +2,7 @@
 import scrapy
 from scrapy import Request
 from tibet_spider.items import CrawlItem
+from tibet_spider.middlewares import url_test
 
 
 class XzgzySpider(scrapy.Spider):

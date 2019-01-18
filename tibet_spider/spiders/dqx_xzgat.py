@@ -1,12 +1,11 @@
 """Crawling news on people website."""
 # -*- coding: utf-8 -*-
-import json
 import re
-from urllib import request
 import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spider import CrawlSpider, Rule
 from tibet_spider.items import CrawlItem
+from tibet_spider.middlewares import url_test
 
 
 class XzgatSpider(CrawlSpider):

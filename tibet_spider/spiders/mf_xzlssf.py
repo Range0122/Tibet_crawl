@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
-import re, time
+import re
 from tibet_spider.items import CrawlItem
+from tibet_spider.middlewares import url_test
 
 
 class XzlssfSpider(scrapy.Spider):

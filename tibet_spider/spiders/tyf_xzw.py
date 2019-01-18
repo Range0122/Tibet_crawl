@@ -4,6 +4,7 @@ import scrapy
 import re
 from tibet_spider.items import CrawlItem
 from scrapy.spiders import CrawlSpider
+from tibet_spider.middlewares import url_test
 
 
 class XZWSpider(CrawlSpider):
@@ -44,6 +45,8 @@ class XZWSpider(CrawlSpider):
 
         for i in range(0, len(url_list)):
             url_list[i] = url_list[i].replace('./', response.url)
+            if url_test(url_list[i]) == 1:
+                return None
             request = scrapy.Request(url=url_list[i], callback=self.parse_pages)
             yield request
 
@@ -71,6 +74,8 @@ class XZWSpider(CrawlSpider):
         if url_list:
             page += 1
             next_url = re.sub(r"([\d]+)", str(page), response.url)
+            if url_test(next_url) == 1:
+                return None
             request = scrapy.Request(url=next_url, meta={"basic_url": response.meta["basic_url"], "page": page},
                                      callback=self.get_url_list)
             yield request

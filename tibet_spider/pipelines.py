@@ -138,24 +138,31 @@ class TibetSpiderPipeline(object):
         return content
 
     def process_item(self, item, spider):
-        item["content"] = self.clean_item(item["content"])
+        # 将知乎抓取评论爬虫与其他爬虫区分
+        if spider.name != 'zh':
+            item["content"] = self.clean_item(item["content"])
 
-        # 判断抓取的数据是否有效（是否包含标题和正文）
-        if item["title"] and item["content"]:
-            item["type"] = self.mapping_table.get(item["raw_type"], item["type"])
-            # item["type"] = self.mapping_table.get(item["raw_type"], "未分类")
+            # 判断抓取的数据是否有效（是否包含标题和正文）
+            if item["title"] and item["content"]:
+                item["type"] = self.mapping_table.get(item["raw_type"], item["type"])
+                # item["type"] = self.mapping_table.get(item["raw_type"], "未分类")
 
-            # 调整publish_time的格式为"yyyy-mm-dd"
-            try:
-                temp = re.findall(r'([\d]{4}).*?([\d]{2}).*?([\d]{2})', item["publish_time"])[0]
-                item["publish_time"] = temp[0] + '-' + temp[1] + '-' + temp[2]
-            except Exception as e:
-                print(e)
+                # 调整publish_time的格式为"yyyy-mm-dd"
+                try:
+                    temp = re.findall(r'([\d]{4}).*?([\d]{2}).*?([\d]{2})', item["publish_time"])[0]
+                    item["publish_time"] = temp[0] + '-' + temp[1] + '-' + temp[2]
+                except Exception as e:
+                    print(e)
 
-            # 保存数据到mongodb数据库
+                # 保存数据到mongodb数据库
+                client = MongoClient('mongodb://localhost:27017/')
+                db = client['spider_db']
+                collection = db['items']
+                collection.insert_one(dict(item))
+        else:
             client = MongoClient('mongodb://localhost:27017/')
-            db = client['test_db']
-            collection = db['test_collection']
+            db = client['spider_db']
+            collection = db['zh_spider']
             collection.insert_one(dict(item))
 
     #         # 保存数据到json文件中

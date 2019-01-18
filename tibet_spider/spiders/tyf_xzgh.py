@@ -33,7 +33,6 @@ class XZGHSpider(CrawlSpider):
             url = self.basic_url + url_list[i]
 
             if url_test(url) == 1:
-                print("Data is exist!")
                 return None
 
             request = scrapy.Request(url=url, callback=self.parse_pages)
@@ -59,7 +58,6 @@ class XZGHSpider(CrawlSpider):
             url = self.basic_url + url_list[i]
 
             if url_test(url) == 1:
-                print("Data is exist!")
                 return None
 
             request = scrapy.Request(url=url, callback=self.parse_pages)

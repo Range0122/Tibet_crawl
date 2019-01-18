@@ -103,21 +103,9 @@ def select_json(path):
 
 if __name__ == '__main__':
     client = MongoClient('mongodb://localhost:27017/')
-    db = client['test_db']
-    collection = db['test_collection']
-    test_data = {
-        "name": 'Range',
-        "age": 22,
-        "job": 'student',
-        "hobby:": 'video game'
-    }
-    # collection.insert_one(test_data)
+    db = client['']
+    collection = db['']
 
-    result = collection.find_one({"name": "sRange"})
-    if result is None:
-        print("NOthing")
-    else:
-        print(result)
 
     # print(collection)
     # url = 'http://www.xzlssf.org/ziyuan/news/2018/0317/2523.html'

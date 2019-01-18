@@ -27,3 +27,15 @@ class CrawlItem(scrapy.Item):
     url = scrapy.Field()
     content = scrapy.Field()
     pass
+
+
+class ZhihuItem(scrapy.Item):
+    title = scrapy.Field()
+    name = scrapy.Field()
+    gender = scrapy.Field()
+    url_token = scrapy.Field()
+    content = scrapy.Field()
+    majors = scrapy.Field()
+    business = scrapy.Field()
+    locations = scrapy.Field()
+    pass
