@@ -90,5 +90,6 @@ class XZZSSpider(CrawlSpider):
             default="None").replace('\n', '').replace(' ', '')
         item["content"] = ''.join(response.selector.xpath('//div[@class="ne_cont_show"]/p').xpath('string()').extract()) \
                           + ''.join(response.selector.xpath('//div[@class="ne_cont_show"]/span').xpath('string()').extract())
+        item["url"] = response.url
 
         return item

@@ -136,5 +136,6 @@ class XZXWSpider(CrawlSpider):
             default=temp[18:]).replace('\n', '').replace(' ', '')
         item["source"] = ''.join(item["source"].split())
         item["content"] = ''.join(response.selector.xpath('//div[@class="xw_daodu_detail"]').xpath('string(.)').extract())
+        item["url"] = response.url
 
         return item

@@ -90,5 +90,6 @@ class XZZXSpider(CrawlSpider):
         item["publish_time"] = temp[:19]
         item["source"] = temp[19:] or "None"
         item["content"] = ''.join(response.selector.xpath('//div[@class="content"]').xpath('string(.)').extract())
+        item["url"] = response.url
 
         return item

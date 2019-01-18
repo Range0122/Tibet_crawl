@@ -10,6 +10,7 @@ import json
 import re
 import time
 from pymongo import MongoClient
+from .utils import TibetItem
 
 
 class TibetSpiderPipeline(object):
@@ -159,6 +160,8 @@ class TibetSpiderPipeline(object):
                 db = client['spider_db']
                 collection = db['items']
                 collection.insert_one(dict(item))
+
+                TibetItem('spider').save_to_es(item)
         else:
             client = MongoClient('mongodb://localhost:27017/')
             db = client['spider_db']
