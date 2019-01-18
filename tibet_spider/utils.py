@@ -1,7 +1,7 @@
 # __author__: Mai feng
 # __file_name__: tibetItem.py
 # __time__: 2018:09:22:00:01
-from elasticsearch_dsl import Text, Date, Keyword, Integer, Document, Completion
+from elasticsearch_dsl import Text, Date, Keyword, Integer, Document
 from elasticsearch_dsl.connections import connections
 from elasticsearch_dsl import analyzer
 from elasticsearch import Elasticsearch
