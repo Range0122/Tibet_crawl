@@ -16,8 +16,11 @@ class UtibetSpider(Spider):
         # 暂时先不用管
 
         for url in url_lists:
-            if url_test(url) == 1:
+            if url_test(response.urljoin(url)) == 1:
+                # print("===========some data is already exist.===========")
                 return None
+            else:
+                print(url)
             yield Request(url=response.urljoin(url), 
             callback=self.parse_pages, 
             dont_filter=True)

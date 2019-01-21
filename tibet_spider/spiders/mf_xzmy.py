@@ -29,7 +29,7 @@ class XzmySpider(scrapy.Spider):
         formdata = response.meta['formdata']
         urls = response.xpath('//div[@class="gnlist"]/ul/li/a/@href').extract()
         for url in urls:
-            if url_test(url) == 1:
+            if url_test(response.urljoin(url)) == 1:
                 return None
             yield Request(url=response.urljoin(url), callback=self.parse_news, dont_filter=True)
         total_page = int(response.xpath('//div[@class="page"]/text()').extract_first().split(' ')[3])

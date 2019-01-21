@@ -13,7 +13,7 @@ class XzgzySpider(scrapy.Spider):
     def parse(self, response):
         urls = response.xpath('//ul[@class="e2"]/li/a/@href').extract()
         for url in urls:
-            if url_test(url) == 1:
+            if url_test(response.urljoin(url)) == 1:
                 return None
             yield Request(url=response.urljoin(url),
                           callback=self.parse_news,

@@ -27,7 +27,7 @@ class TtmcSpider(scrapy.Spider):
                 news_id = 'line42162_{id}'.format(id=i)
                 url = response.xpath('//tr[@id="{id}"]/td[1]/a/@href'.format(id=news_id)).extract_first()
 
-                if url_test(url) == 1:
+                if url_test(response.urljoin(url)) == 1:
                     return None
 
                 yield Request(url=response.urljoin(url), callback=self.parse_news, dont_filter=True)
